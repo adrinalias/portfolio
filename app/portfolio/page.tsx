@@ -6,11 +6,12 @@ import Link from "next/link"
 import { useEffect } from "react"
 
 export default function PortfolioPage() {
+  const pdfUrl = "https://blob.v0.dev/adrin-alias-portfolio.pdf"
+
   useEffect(() => {
     console.log("[v0] Portfolio page mounted")
 
-    // Check if PDF file is accessible
-    fetch("/adrin-alias-portfolio.pdf", { method: "HEAD" })
+    fetch(pdfUrl, { method: "HEAD" })
       .then((response) => {
         console.log("[v0] PDF file check - Status:", response.status)
         console.log("[v0] PDF file check - OK:", response.ok)
@@ -25,10 +26,9 @@ export default function PortfolioPage() {
 
   const handleOpenPDF = () => {
     console.log("[v0] Open PDF button clicked")
-    console.log("[v0] Attempting to open:", "/adrin-alias-portfolio.pdf")
+    console.log("[v0] Attempting to open:", pdfUrl)
 
-    // Try to open the PDF and log any issues
-    const newWindow = window.open("/adrin-alias-portfolio.pdf", "_blank", "noopener,noreferrer")
+    const newWindow = window.open(pdfUrl, "_blank", "noopener,noreferrer")
     if (!newWindow) {
       console.log("[v0] Failed to open new window - popup blocked?")
     } else {
@@ -61,7 +61,7 @@ export default function PortfolioPage() {
 
           <div className="w-full h-[800px] border rounded-lg overflow-hidden">
             <iframe
-              src="/adrin-alias-portfolio.pdf"
+              src={pdfUrl}
               className="w-full h-full"
               title="Adrin Alias Engineering Portfolio"
               onLoad={() => console.log("[v0] Iframe loaded successfully")}

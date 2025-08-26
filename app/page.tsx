@@ -4,7 +4,7 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { ChevronDown, ExternalLink, Github } from "lucide-react"
+import { ExternalLink, Github } from "lucide-react"
 import { ThemeToggle } from "@/components/theme-toggle"
 
 const projects = [
@@ -98,17 +98,14 @@ export default function Portfolio() {
             University of Texas at Arlington | B.S. MechE, December 2025
           </p>
           <Button
-            onClick={handleEnterPortfolio}
             size="lg"
             className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105"
+            asChild
           >
-            View Engineering Portfolio
+            <a href="/adrin-alias-portfolio.pdf" target="_blank" rel="noopener noreferrer">
+              View Engineering Portfolio
+            </a>
           </Button>
-
-          {/* Scroll indicator */}
-          <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-            <ChevronDown className="w-6 h-6 text-muted-foreground" />
-          </div>
         </div>
       </div>
     )

@@ -80,6 +80,10 @@ export default function Portfolio() {
     setShowSplash(false)
   }
 
+  const handlePDFDownload = () => {
+    window.open("/api/portfolio", "_blank")
+  }
+
   if (showSplash) {
     return (
       <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-accent/10 flex items-center justify-center relative overflow-hidden">
@@ -100,11 +104,9 @@ export default function Portfolio() {
           <Button
             size="lg"
             className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105"
-            asChild
+            onClick={handlePDFDownload}
           >
-            <a href="/adrin-alias-portfolio.pdf" target="_blank" rel="noopener noreferrer">
-              View Engineering Portfolio
-            </a>
+            View Engineering Portfolio
           </Button>
         </div>
       </div>

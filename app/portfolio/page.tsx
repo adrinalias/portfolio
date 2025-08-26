@@ -3,37 +3,12 @@
 import { Button } from "@/components/ui/button"
 import { ArrowLeft, ExternalLink } from "lucide-react"
 import Link from "next/link"
-import { useEffect } from "react"
 
 export default function PortfolioPage() {
   const pdfUrl = "/adrin-alias-portfolio.pdf"
 
-  useEffect(() => {
-    console.log("[v0] Portfolio page mounted")
-
-    fetch(pdfUrl, { method: "HEAD" })
-      .then((response) => {
-        console.log("[v0] PDF file check - Status:", response.status)
-        console.log("[v0] PDF file check - OK:", response.ok)
-        if (!response.ok) {
-          console.log("[v0] PDF file not accessible - 404 or other error")
-        }
-      })
-      .catch((error) => {
-        console.log("[v0] PDF file check failed:", error)
-      })
-  }, [])
-
   const handleOpenPDF = () => {
-    console.log("[v0] Open PDF button clicked")
-    console.log("[v0] Attempting to open:", pdfUrl)
-
-    const newWindow = window.open(pdfUrl, "_blank", "noopener,noreferrer")
-    if (!newWindow) {
-      console.log("[v0] Failed to open new window - popup blocked?")
-    } else {
-      console.log("[v0] New window opened successfully")
-    }
+    window.open(pdfUrl, "_blank", "noopener,noreferrer")
   }
 
   return (
@@ -60,13 +35,7 @@ export default function PortfolioPage() {
           </div>
 
           <div className="w-full h-[800px] border rounded-lg overflow-hidden">
-            <iframe
-              src={pdfUrl}
-              className="w-full h-full"
-              title="Adrin Alias Engineering Portfolio"
-              onLoad={() => console.log("[v0] Iframe loaded successfully")}
-              onError={(e) => console.log("[v0] Iframe error:", e)}
-            />
+            <iframe src={pdfUrl} className="w-full h-full" title="Adrin Alias Engineering Portfolio" />
           </div>
         </div>
       </div>

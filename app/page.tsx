@@ -3,10 +3,16 @@
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
-import Link from "next/link"
 
 export default function Portfolio() {
   const [showSplash, setShowSplash] = useState(true)
+
+  const handleOpenPDF = () => {
+    window.open(
+      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/adrin-alias-portfolio-pdf-placeholder-content.pdf",
+      "_blank",
+    )
+  }
 
   if (showSplash) {
     return (
@@ -26,9 +32,9 @@ export default function Portfolio() {
             <Button
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105 block mx-auto"
-              asChild
+              onClick={handleOpenPDF}
             >
-              <Link href="/portfolio">View Engineering Portfolio</Link>
+              View Engineering Portfolio
             </Button>
             <Button
               variant="outline"
@@ -53,9 +59,6 @@ export default function Portfolio() {
             <h1 className="font-serif font-bold text-2xl text-foreground">Adrin Alias</h1>
             <div className="flex items-center space-x-4">
               <nav className="hidden md:flex space-x-6">
-                <Link href="/portfolio" className="text-muted-foreground hover:text-foreground transition-colors">
-                  Portfolio
-                </Link>
                 <a
                   href="https://linkedin.com/in/adrinalias"
                   target="_blank"
@@ -101,8 +104,12 @@ export default function Portfolio() {
           </div>
 
           <div className="space-y-4">
-            <Button size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground" asChild>
-              <Link href="/portfolio">View Full Portfolio</Link>
+            <Button
+              size="lg"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground"
+              onClick={handleOpenPDF}
+            >
+              View Full Portfolio
             </Button>
             <br />
             <Button size="lg" variant="outline" asChild>

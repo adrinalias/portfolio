@@ -45,13 +45,11 @@ export default function Portfolio() {
           <div className="space-y-4">
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:scale-105 block mx-auto"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:scale-105"
               onClick={handleOpenPDF}
             >
-              <span className="flex items-center">
-                View Engineering Portfolio
-                <ExternalLinkIcon />
-              </span>
+              View Engineering Portfolio
+              <ExternalLinkIcon />
             </Button>
             <Button
               variant="outline"
@@ -126,10 +124,8 @@ export default function Portfolio() {
               className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-4"
               onClick={handleOpenPDF}
             >
-              <span className="flex items-center">
-                View Full Portfolio
-                <ExternalLinkIcon />
-              </span>
+              View Full Portfolio
+              <ExternalLinkIcon />
             </Button>
             <br />
             <Button size="lg" variant="outline" asChild>

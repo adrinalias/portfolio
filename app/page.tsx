@@ -81,7 +81,7 @@ export default function Portfolio() {
   }
 
   const handlePDFDownload = () => {
-    window.open("/api/portfolio", "_blank")
+    window.open("/adrin-alias-portfolio.pdf", "_blank")
   }
 
   if (showSplash) {

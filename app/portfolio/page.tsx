@@ -23,7 +23,7 @@ export default function PortfolioPage() {
           </Link>
         </div>
 
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-6xl mx-auto">
           <div className="mb-4 text-center">
             <h1 className="text-2xl font-bold mb-2">Engineering Portfolio</h1>
             <p className="text-muted-foreground mb-4">Adrin Alias - Mechanical Engineering</p>

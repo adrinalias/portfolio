@@ -6,7 +6,7 @@ import Link from "next/link"
 import { useEffect } from "react"
 
 export default function PortfolioPage() {
-  const pdfUrl = "https://blob.v0.dev/adrin-alias-portfolio.pdf"
+  const pdfUrl = "/adrin-alias-portfolio.pdf"
 
   useEffect(() => {
     console.log("[v0] Portfolio page mounted")

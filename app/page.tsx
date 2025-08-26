@@ -9,7 +9,7 @@ export default function Portfolio() {
 
   const handleOpenPDF = () => {
     window.open(
-      "https://hebbkx1anhila5yf.public.blob.vercel-storage.com/attachments/gen-images/public/adrin-alias-portfolio-pdf-placeholder-content.pdf",
+      "/adrin-alias-portfolio.pdf",
       "_blank",
     )
   }

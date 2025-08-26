@@ -8,10 +8,7 @@ export default function Portfolio() {
   const [showSplash, setShowSplash] = useState(true)
 
   const handleOpenPDF = () => {
-    window.open(
-      "/adrin-alias-portfolio.pdf",
-      "_blank",
-    )
+    window.open("/adrin-alias-portfolio.pdf", "_blank")
   }
 
   if (showSplash) {
@@ -31,7 +28,7 @@ export default function Portfolio() {
           <div className="space-y-4">
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105 block mx-auto"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:scale-105 block mx-auto"
               onClick={handleOpenPDF}
             >
               View Engineering Portfolio
@@ -39,7 +36,7 @@ export default function Portfolio() {
             <Button
               variant="outline"
               size="lg"
-              className="font-semibold px-8 py-3 rounded-lg transition-all duration-300 hover:scale-105 bg-transparent"
+              className="font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:scale-105 bg-transparent"
               onClick={() => setShowSplash(false)}
             >
               Learn More
@@ -106,7 +103,7 @@ export default function Portfolio() {
           <div className="space-y-4">
             <Button
               size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-4"
               onClick={handleOpenPDF}
             >
               View Full Portfolio

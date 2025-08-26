@@ -7,12 +7,17 @@ import Link from "next/link"
 
 export default function PortfolioPage() {
   const handleDownloadPDF = () => {
-    const link = document.createElement("a")
-    link.href = "/adrin-alias-portfolio.pdf"
-    link.download = "Adrin-Alias-Portfolio.pdf"
-    document.body.appendChild(link)
-    link.click()
-    document.body.removeChild(link)
+    try {
+      const link = document.createElement("a")
+      link.href = "/adrin-alias-portfolio.pdf"
+      link.download = "Adrin-Alias-Portfolio.pdf"
+      document.body.appendChild(link)
+      link.click()
+      document.body.removeChild(link)
+    } catch (error) {
+      // Fallback: open in new window
+      window.open("/adrin-alias-portfolio.pdf", "_blank")
+    }
   }
 
   return (
@@ -54,6 +59,9 @@ export default function PortfolioPage() {
             src="/adrin-alias-portfolio.pdf"
             className="w-full h-[80vh] min-h-[600px]"
             title="Adrin Alias Engineering Portfolio"
+            onError={() => {
+              console.log("[v0] PDF iframe failed to load")
+            }}
           />
         </div>
 

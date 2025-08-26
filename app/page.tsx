@@ -18,9 +18,9 @@ export default function Portfolio() {
         <div className="text-center z-10 px-4">
           <h1 className="font-serif font-black text-4xl md:text-6xl lg:text-7xl text-foreground mb-4">Adrin Alias</h1>
           <p className="font-sans text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Mechanical Engineering Student
+            Mechanical Engineer
             <br />
-            University of Texas at Arlington | B.S. MechE, December 2025
+            University of Texas at Arlington | BSME December 2025
           </p>
           <div className="space-y-4">
             <Button

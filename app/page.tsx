@@ -4,6 +4,23 @@ import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 
+const ExternalLinkIcon = () => (
+  <svg
+    className="w-4 h-4 ml-2"
+    fill="none"
+    stroke="currentColor"
+    viewBox="0 0 24 24"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      strokeWidth={2}
+      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+    />
+  </svg>
+)
+
 export default function Portfolio() {
   const [showSplash, setShowSplash] = useState(true)
 
@@ -31,7 +48,10 @@ export default function Portfolio() {
               className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:scale-105 block mx-auto"
               onClick={handleOpenPDF}
             >
-              View Engineering Portfolio
+              <span className="flex items-center">
+                View Engineering Portfolio
+                <ExternalLinkIcon />
+              </span>
             </Button>
             <Button
               variant="outline"
@@ -106,7 +126,10 @@ export default function Portfolio() {
               className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-4"
               onClick={handleOpenPDF}
             >
-              View Full Portfolio
+              <span className="flex items-center">
+                View Full Portfolio
+                <ExternalLinkIcon />
+              </span>
             </Button>
             <br />
             <Button size="lg" variant="outline" asChild>

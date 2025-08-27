@@ -1,5 +1,5 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -13,7 +13,7 @@
   --card-foreground: oklch(0.145 0 0); /* Pure black #000000 */
   
   /* Primary colors - Blue */
-  --primary: oklch(0.205 0 0); /* Dark blue #333333 */
+  --primary: oklch(0.6 0.15 240); /* Medium blue #4f8bf0 */
   --primary-foreground: oklch(0.985 0 0); /* Off-white #fafafa */
   
   /* Secondary colors - Light gray */
@@ -26,7 +26,7 @@
   
   /* Accent colors - Light gray for hover states */
   --accent: oklch(0.97 0 0); /* Very light gray #f7f7f7 */
-  --accent-foreground: oklch(0.205 0 0); /* Dark blue #333333 */
+  --accent-foreground: oklch(0.7 0 0); /* Dark blue #333333 */
   
   /* Destructive colors - Red */
   --destructive: oklch(0.577 0.245 27.325); /* Red #dc2626 */
@@ -56,7 +56,7 @@
   --card-foreground: oklch(0.985 0 0); /* Off-white #fafafa */
   
   /* Primary colors - Light blue */
-  --primary: oklch(0.985 0 0); /* Off-white #fafafa */
+  --primary: oklch(0.8 0.1 240); /* Light blue #a8c6f0 */
   --primary-foreground: oklch(0.205 0 0); /* Dark blue #333333 */
   
   /* Secondary colors - Dark gray */
@@ -68,7 +68,7 @@
   --muted-foreground: oklch(0.708 0 0); /* Medium gray #b5b5b5 */
   
   /* Accent colors - Dark gray for hover states */
-  --accent: oklch(0.269 0 0); /* Dark gray #444444 */
+  --accent: oklch(0.3 0 0); /* Dark gray #444444 */
   --accent-foreground: oklch(0.985 0 0); /* Off-white #fafafa */
   
   /* Destructive colors - Darker red */

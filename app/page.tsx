@@ -36,6 +36,10 @@ export default function Portfolio() {
     window.open("/adrin-alias-portfolio.pdf", "_blank")
   }
 
+  const handleOpenResume = () => {
+    window.open("/adrin-alias-resume.pdf", "_blank")
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-accent/10 flex flex-col">
       <div className="flex-1 flex items-center justify-center relative overflow-hidden">
@@ -64,9 +68,9 @@ export default function Portfolio() {
           <p className="font-sans text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Mechanical Engineer
             <br />
-            University of Texas at Arlington | BSME December 2025
+            Graduating December 2025
           </p>
-          <div className="space-y-4">
+          <div className="space-y-6 flex flex-col items-center">
             <Button
               size="lg"
               className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:scale-105"
@@ -74,6 +78,16 @@ export default function Portfolio() {
             >
               <span className="flex items-center">
                 View Engineering Portfolio
+                <ExternalLinkIcon />
+              </span>
+            </Button>
+            <Button
+              size="lg"
+              className="bg-primary/60 hover:bg-primary/70 text-primary-foreground font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:scale-105"
+              onClick={handleOpenResume}
+            >
+              <span className="flex items-center">
+                View My Resume
                 <ExternalLinkIcon />
               </span>
             </Button>

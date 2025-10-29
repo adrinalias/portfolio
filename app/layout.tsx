@@ -22,7 +22,7 @@ const openSans = Open_Sans({
 export const metadata: Metadata = {
   title: "Adrin Alias - Mechanical Engineering Portfolio",
   description: "Portfolio showcasing electromechanical projects, CAD designs, and technical skills.",
-  generator: "v0.app",
+  generator: "Next.js",
 }
 
 export default function RootLayout({

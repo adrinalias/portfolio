@@ -68,7 +68,7 @@ export default function Portfolio() {
           <p className="font-sans text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Mechanical Engineer
             <br />
-            Graduating December 2025
+            Graduated December 2025
           </p>
           <div className="space-y-6 flex flex-col items-center">
             <Button
@@ -81,7 +81,7 @@ export default function Portfolio() {
                 <ExternalLinkIcon />
               </span>
             </Button>
-            <Button
+            {/* <Button
               size="lg"
               className="bg-primary/60 hover:bg-primary/70 text-primary-foreground font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:scale-105"
               onClick={handleOpenResume}
@@ -90,7 +90,7 @@ export default function Portfolio() {
                 View My Resume
                 <ExternalLinkIcon />
               </span>
-            </Button>
+            </Button> */}
           </div>
         </div>
       </div>

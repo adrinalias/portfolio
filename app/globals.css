@@ -5,6 +5,10 @@
 /* stylelint-disable-next-line at-rule-no-unknown */
 @custom-variant dark (&:is(.dark *));
 
+html {
+  scroll-behavior: smooth;
+}
+
 :root {
   /* Light mode colors */
   --background: oklch(1 0 0); /* Pure white #ffffff */

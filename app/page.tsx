@@ -1,23 +1,9 @@
 "use client"
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
-
-const ExternalLinkIcon = () => (
-  <svg
-    className="w-4 h-4 ml-2"
-    fill="none"
-    stroke="currentColor"
-    viewBox="0 0 24 24"
-    xmlns="http://www.w3.org/2000/svg"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      strokeWidth={2}
-      d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-    />
-  </svg>
-)
+import { ProjectGallery } from "@/components/project-gallery"
+import { projects } from "@/lib/data/projects"
+import { ChevronDown } from "lucide-react"
 
 const LinkedInIcon = () => (
   <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -32,69 +18,77 @@ const GitHubIcon = () => (
 )
 
 export default function Portfolio() {
-  const handleOpenPDF = () => {
-    window.open("/adrin-alias-portfolio.pdf", "_blank")
-  }
-
-  const handleOpenResume = () => {
-    window.open("/adrin-alias-resume.pdf", "_blank")
-  }
+  const scrollToProjects = () => {
+    document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+  };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-accent/10 flex flex-col">
-      <div className="flex-1 flex items-center justify-center relative overflow-hidden">
-        <div className="absolute top-4 right-4 z-20 flex items-center space-x-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => window.open("https://linkedin.com/in/adrinalias", "_blank")}
-            className="hover:bg-accent"
-          >
-            <LinkedInIcon />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => window.open("https://github.com/adrin-alias/", "_blank")}
-            className="hover:bg-accent"
-          >
-            <GitHubIcon />
-          </Button>
-          <ThemeToggle />
-        </div>
-
-        <div className="text-center z-10 px-4">
-          <h1 className="font-serif font-black text-4xl md:text-6xl lg:text-7xl text-foreground mb-4">Adrin Alias</h1>
-          <p className="font-sans text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Mechanical Engineer
-            <br />
-            Graduated December 2025
-          </p>
-          <div className="space-y-6 flex flex-col items-center">
+    <div className="min-h-screen">
+      {/* Hero Section */}
+      <section className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-accent/10 flex flex-col relative">
+        <div className="flex-1 flex items-center justify-center relative overflow-hidden">
+          {/* Header with social links and theme toggle */}
+          <div className="absolute top-4 right-4 z-20 flex items-center space-x-2">
             <Button
-              size="lg"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:scale-105"
-              onClick={handleOpenPDF}
+              variant="ghost"
+              size="icon"
+              onClick={() => window.open("https://linkedin.com/in/adrinalias", "_blank")}
+              className="hover:bg-accent"
             >
-              <span className="flex items-center">
-                View Engineering Portfolio
-                <ExternalLinkIcon />
-              </span>
+              <LinkedInIcon />
             </Button>
-            {/* <Button
-              size="lg"
-              className="bg-primary/60 hover:bg-primary/70 text-primary-foreground font-semibold px-8 py-4 rounded-lg transition-all duration-300 hover:scale-105"
-              onClick={handleOpenResume}
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => window.open("https://github.com/adrin-alias/", "_blank")}
+              className="hover:bg-accent"
             >
-              <span className="flex items-center">
-                View My Resume
-                <ExternalLinkIcon />
-              </span>
-            </Button> */}
+              <GitHubIcon />
+            </Button>
+            <ThemeToggle />
           </div>
-        </div>
-      </div>
 
+          {/* Hero Content */}
+          <div className="text-center z-10 px-4">
+            <h1 className="font-serif font-black text-4xl md:text-6xl lg:text-7xl text-foreground mb-4">
+              Adrin Alias
+            </h1>
+            <p className="font-sans text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+              Mechanical Engineer
+              <br />
+              Graduated December 2025
+            </p>
+          </div>
+
+          {/* Scroll indicator */}
+          <button
+            onClick={scrollToProjects}
+            className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-muted-foreground hover:text-foreground transition-colors"
+            aria-label="Scroll to projects"
+          >
+            <ChevronDown className="w-8 h-8" />
+          </button>
+        </div>
+      </section>
+
+      {/* Projects Section */}
+      <section id="projects" className="min-h-screen bg-background py-16 md:py-24">
+        <div className="container mx-auto px-4 max-w-7xl">
+          <div className="mb-12">
+            <h2 className="font-serif font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
+              Projects
+            </h2>
+            <p className="text-muted-foreground text-lg max-w-3xl">
+              Explore my engineering work spanning robotics, mechanical design, fabrication, and more.
+              Click on any project to see detailed documentation.
+            </p>
+          </div>
+          
+          <ProjectGallery projects={projects} />
+        </div>
+      </section>
+
+      {/* Footer */}
       <footer className="border-t border-border bg-background/80 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-6">
           <div className="text-center text-muted-foreground">

@@ -4,7 +4,7 @@ export const metadata = {
   shortDescription: 'Comprehensive guide to all available MDX formatting features including callouts, code blocks, metrics, and custom components.',
   coverImage: '/placeholder.svg',
   tags: ['prototyping'],
-  date: '2026-02-10',
+  date: '2099-01-01',
   featured: false,
   hidden: false,
   category: 'Documentation',

@@ -148,7 +148,7 @@ export default async function ProjectPage({ params }: PageProps) {
         <div className="flex gap-8">
           {/* Main content */}
           <div className="flex-1 min-w-0">
-            <div className="rounded-lg p-6 md:p-8 bg-transparent dark:bg-neutral-900/60 dark:border dark:border-neutral-800/60">
+            <div className="rounded-lg p-0 md:p-8 bg-transparent md:dark:bg-neutral-900/60 md:dark:border md:dark:border-neutral-800/60">
               {/* MDX Content */}
               <div className="prose prose-neutral dark:prose-invert max-w-none 
                 prose-headings:scroll-mt-20 prose-headings:font-serif

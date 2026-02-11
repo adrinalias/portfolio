@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { ArrowRight } from 'lucide-react';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { ProjectMetadata } from '@/lib/mdx';
@@ -16,7 +17,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const tags = getTagsByIds(project.tags);
 
-  const handleCardClick = (e: React.MouseEvent) => {
+  const handleImageClick = (e: React.MouseEvent) => {
+    // Allow navigation if clicking the action button
+    if ((e.target as HTMLElement).closest('.action-button')) {
+      return;
+    }
+
     // Only toggle on mobile (when there's no hover support)
     if (window.matchMedia('(hover: none)').matches) {
       e.preventDefault();
@@ -25,62 +31,71 @@ export function ProjectCard({ project }: ProjectCardProps) {
   };
 
   return (
-    <Link href={`/projects/${project.slug}`} className="block group">
+    <Link href={`/projects/${project.slug}`} className="block group h-full">
       <Card 
-        className="overflow-hidden relative aspect-[4/3] cursor-pointer transition-all duration-300 hover:shadow-xl hover:scale-[1.02]"
-        onClick={handleCardClick}
+        className="flex flex-col h-full overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg hover:border-primary/50 p-0 gap-0"
       >
-        {/* Cover Image */}
-        <div className="absolute inset-0">
+        {/* Cover Image Container */}
+        <div 
+          className="relative aspect-[4/3] overflow-hidden bg-muted"
+          onClick={handleImageClick}
+        >
           <Image
             src={project.coverImage}
             alt={project.title}
             fill
-            className="object-cover transition-transform duration-300 group-hover:scale-105"
+            className="object-cover transition-transform duration-500 group-hover:scale-105"
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
-        </div>
 
-        {/* Overlay - shows on hover (desktop) or when expanded (mobile) */}
-        <div 
-          className={`
-            absolute inset-0 bg-gradient-to-t from-black/90 via-black/60 to-transparent
-            transition-opacity duration-300 flex flex-col justify-end p-6
-            ${isExpanded ? 'opacity-100' : 'opacity-0 md:group-hover:opacity-100'}
-          `}
-        >
-          <h3 className="text-white text-xl font-semibold mb-2 font-serif">
-            {project.title}
-          </h3>
-          
-          <p className="text-white/90 text-sm mb-4 line-clamp-3">
-            {project.shortDescription}
-          </p>
+          {/* Overlay - appears on hover/tap */}
+          <div 
+            className={`
+              absolute inset-0 bg-white/90 dark:bg-black/80 backdrop-blur-[2px]
+              transition-all duration-300 flex flex-col justify-center items-center p-6 text-center
+              ${isExpanded ? 'opacity-100' : 'opacity-0 md:group-hover:opacity-100'}
+            `}
+          >
+            <p className="text-zinc-800 dark:text-white/90 text-sm mb-6 leading-relaxed line-clamp-4 max-w-[90%] font-medium">
+              {project.shortDescription}
+            </p>
 
-          {/* Tags */}
-          <div className="flex flex-wrap gap-2">
-            {tags.map(tag => (
-              <Badge
-                key={tag.id}
-                variant="secondary"
-                className="text-xs"
-                style={{
-                  backgroundColor: tag.color,
-                  color: 'white',
-                  border: 'none',
-                }}
-              >
-                {tag.name}
-              </Badge>
-            ))}
+            {/* Tags */}
+            <div className="flex flex-wrap justify-center gap-2 mb-8">
+              {tags.map(tag => (
+                <Badge
+                  key={tag.id}
+                  variant="outline"
+                  className="text-xs backdrop-blur-sm"
+                  style={{
+                    borderColor: tag.color,
+                    color: tag.color,
+                  }}
+                >
+                  {tag.name}
+                </Badge>
+              ))}
+            </div>
+
+            {/* View Project Button (Mobile Only) */}
+            <div className="md:hidden action-button bg-secondary/90 text-secondary-foreground hover:bg-secondary border border-border/50 h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
+              View Project <ArrowRight className="ml-2 h-4 w-4 opacity-50" />
+            </div>
           </div>
         </div>
 
-        {/* Always visible title for accessibility */}
-        <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/50 to-transparent p-4 md:opacity-0 md:group-hover:opacity-0 transition-opacity">
-          <h3 className="text-white text-lg font-semibold font-serif">
-            {project.title}
-          </h3>
+        {/* Title & Info Section */}
+        <div className="px-4 py-3 flex-1 flex flex-col justify-between bg-muted border-t border-border/50">
+          <div className="flex items-center justify-between gap-2">
+            <div>
+              <h3 className="text-foreground text-lg font-bold font-serif leading-tight group-hover:text-primary transition-colors mb-1">
+                {project.title}
+              </h3>
+              <p className="text-xs text-muted-foreground">
+                {new Date(project.date).getFullYear()} • {project.category}
+              </p>
+            </div>
+          </div>
         </div>
       </Card>
     </Link>

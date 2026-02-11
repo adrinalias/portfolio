@@ -21,6 +21,7 @@ export const mdxComponents = {
   ImageZoom,
   
   // Override default HTML elements
+  img: ImageZoom,
   a: CustomLink,
   blockquote: CustomBlockquote,
   table: CustomTable,

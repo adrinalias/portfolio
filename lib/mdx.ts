@@ -85,9 +85,10 @@ export async function getAllProjects(): Promise<ProjectMetadata[]> {
   );
 
   // Filter out null values and hidden projects
-  return projects.filter((project): project is ProjectMetadata => 
-    project !== null && !project.hidden
-  );
+  // Sort by date descending
+  return projects
+    .filter((project): project is ProjectMetadata => project !== null && !project.hidden)
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
 
 /**

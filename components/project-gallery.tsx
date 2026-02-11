@@ -64,7 +64,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
   }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4">
       {/* Filter Section */}
       <TagFilter
         selectedTags={selectedTags}

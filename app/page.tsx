@@ -1,26 +1,25 @@
 import { ProjectGallery } from "@/components/project-gallery"
 import { getAllProjects } from "@/lib/mdx"
 import { HeroSection } from "@/components/hero-section"
+import { ScrollSnapContainer } from "@/components/scroll-snap-container"
 
 export default async function Portfolio() {
   const projects = await getAllProjects();
 
   return (
-    <div className="min-h-screen">
+    <ScrollSnapContainer className="h-screen overflow-y-auto">
       {/* Hero Section */}
-      <HeroSection />
+      <div className="snap-start">
+        <HeroSection />
+      </div>
 
       {/* Projects Section */}
-      <section id="projects" className="min-h-screen bg-background py-16 md:py-24">
+      <section id="projects" className="min-h-screen bg-background py-10 md:py-16 snap-start">
         <div className="container mx-auto px-4 max-w-7xl">
-          <div className="mb-12">
+          <div className="mb-6">
             <h2 className="font-serif font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
               Projects
             </h2>
-            <p className="text-muted-foreground text-lg max-w-3xl">
-              Explore my engineering work spanning robotics, mechanical design, fabrication, and more.
-              Click on any project to see detailed documentation.
-            </p>
           </div>
           
           <ProjectGallery projects={projects} />
@@ -35,6 +34,6 @@ export default async function Portfolio() {
           </div>
         </div>
       </footer>
-    </div>
+    </ScrollSnapContainer>
   )
 }

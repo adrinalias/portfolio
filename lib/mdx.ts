@@ -11,6 +11,22 @@ import type { Root } from 'mdast';
 import { mdxComponents } from '@/components/mdx';
 
 const projectsDirectory = path.join(process.cwd(), 'content/projects');
+const publicProjectsDirectory = path.join(process.cwd(), 'public/projects');
+
+const resolveCoverImage = (slug: string, fallback: string): string => {
+  const projectDir = path.join(publicProjectsDirectory, slug);
+  const jpgPath = path.join(projectDir, 'cover.jpg');
+  if (fs.existsSync(jpgPath)) {
+    return `/projects/${slug}/cover.jpg`;
+  }
+
+  const pngPath = path.join(projectDir, 'cover.png');
+  if (fs.existsSync(pngPath)) {
+    return `/projects/${slug}/cover.png`;
+  }
+
+  return fallback;
+};
 
 export interface ProjectMetadata {
   slug: string;
@@ -58,7 +74,11 @@ export async function getAllProjects(): Promise<ProjectMetadata[]> {
         if (fs.existsSync(metadataPath)) {
           // Dynamically import the metadata
           const { metadata } = await import(`@/content/projects/${folder}/metadata`);
-          return metadata as ProjectMetadata;
+          const slug = metadata.slug ?? folder;
+          return {
+            ...(metadata as ProjectMetadata),
+            coverImage: resolveCoverImage(slug, metadata.coverImage),
+          };
         }
         return null;
       })
@@ -85,6 +105,7 @@ export async function getProjectBySlug(slug: string): Promise<ProjectWithContent
 
     // Load metadata
     const { metadata } = await import(`@/content/projects/${slug}/metadata`);
+    const coverImage = resolveCoverImage(slug, metadata.coverImage);
 
     // Load MDX content
     const source = fs.readFileSync(mdxPath, 'utf-8');
@@ -172,7 +193,10 @@ export async function getProjectBySlug(slug: string): Promise<ProjectWithContent
     });
 
     return {
-      metadata: metadata as ProjectMetadata,
+      metadata: {
+        ...(metadata as ProjectMetadata),
+        coverImage,
+      },
       content,
       headings,
     };

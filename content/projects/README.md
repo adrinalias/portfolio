@@ -83,7 +83,7 @@ export const metadata = {
   slug: 'project-slug',           // URL-friendly identifier
   title: 'Project Title',         // Display name
   shortDescription: 'Brief...',   // For cards and previews
-  coverImage: '/path/to/image',   // Card thumbnail
+  coverImage: '/path/to/image',   // Card thumbnail (fallback if no cover.jpg/png)
   tags: ['tag1', 'tag2'],        // For filtering
   date: 'YYYY-MM-DD',            // Project completion date
   featured: true,                 // Show on homepage
@@ -102,7 +102,14 @@ export const metadata = {
 2. Add `index.mdx` with your content
 3. Add `metadata.ts` with project information
 4. (Optional) Add an `images/` folder for project-specific assets
-5. The project will automatically appear in the gallery
+5. (Optional) Add `public/projects/your-project-slug/cover.jpg` or `cover.png`
+6. The project will automatically appear in the gallery
+
+## Cover Images
+
+If `public/projects/<slug>/cover.jpg` or `cover.png` exists, it is used as the
+project cover image at build time. Otherwise, `metadata.coverImage` is used as
+the fallback.
 
 ## Supported Tags
 

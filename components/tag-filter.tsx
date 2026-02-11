@@ -21,22 +21,20 @@ export function TagFilter({ selectedTags, onTagToggle, onClearAll, availableTags
   const hasActiveFilters = selectedTags.length > 0;
 
   return (
-    <div className="space-y-4">
-      <div className="flex items-center justify-between">
+    <div className="space-y-3">
+      <div className="flex items-center justify-between min-h-[2rem]">
         <h3 className="text-sm font-medium text-muted-foreground">
           Filter by tags {hasActiveFilters && `(${selectedTags.length} active)`}
         </h3>
-        {hasActiveFilters && (
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={onClearAll}
-            className="h-8 px-2 text-xs"
-          >
-            <X className="mr-1 h-3 w-3" />
-            Clear all
-          </Button>
-        )}
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={onClearAll}
+          className={`h-8 px-2 text-xs ${hasActiveFilters ? '' : 'invisible pointer-events-none'}`}
+        >
+          <X className="mr-1 h-3 w-3" />
+          Clear all
+        </Button>
       </div>
       
       <div className="flex flex-wrap gap-2">
@@ -61,11 +59,17 @@ export function TagFilter({ selectedTags, onTagToggle, onClearAll, availableTags
         })}
       </div>
       
-      {hasActiveFilters && (
-        <p className="text-xs text-muted-foreground">
-          Showing projects with <strong>all</strong> selected tags
-        </p>
-      )}
+      <div className="min-h-[1rem]">
+        {hasActiveFilters ? (
+          <p className="text-xs text-muted-foreground">
+            Showing projects with <strong>all</strong> selected tags
+          </p>
+        ) : (
+          <p className="text-xs text-muted-foreground opacity-0 select-none">
+            Showing projects with all selected tags
+          </p>
+        )}
+      </div>
     </div>
   );
 }

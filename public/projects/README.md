@@ -41,10 +41,13 @@ public/
 ## Adding Your Own Images
 
 1. Create the project subfolder in `/public/projects/`
-2. Add your images with the exact filenames referenced in `/lib/data/projects.ts`
-3. For 3D models, place GLB files in `/public/models/`
-4. Update the paths in the project data if needed
+2. Add your images inside the project folder
+3. For cover images, use `cover.jpg` or `cover.png` to auto-select the cover
+4. For 3D models, place GLB files in `/public/models/`
+5. Update image paths in MDX or metadata if needed
 
 ## Placeholder
 
-Until you add real images, a gray placeholder will be shown. You can replace this by adding your images to the appropriate folders.
+Until you add real images, a gray placeholder will be shown. You can replace
+this by adding your images to the appropriate folders or setting
+`coverImage` in `metadata.ts`.

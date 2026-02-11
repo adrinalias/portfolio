@@ -5,11 +5,11 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Project } from '@/types/project';
+import { ProjectMetadata } from '@/lib/mdx';
 import { getTagsByIds } from '@/lib/data/tags';
 
 interface ProjectCardProps {
-  project: Project;
+  project: ProjectMetadata;
 }
 
 export function ProjectCard({ project }: ProjectCardProps) {

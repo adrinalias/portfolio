@@ -4,20 +4,27 @@ import { useState, useEffect } from 'react';
 import { ProjectCard } from '@/components/project-card';
 import { TagFilter } from '@/components/tag-filter';
 import { Skeleton } from '@/components/ui/skeleton';
-import { Project } from '@/types/project';
-import { filterProjectsByTags, getAllProjectTags } from '@/lib/data/projects';
+import { ProjectMetadata } from '@/lib/mdx';
+import { getAllTags } from '@/lib/data/tags';
 
 interface ProjectGalleryProps {
-  projects: Project[];
+  projects: ProjectMetadata[];
 }
 
 export function ProjectGallery({ projects }: ProjectGalleryProps) {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [filteredProjects, setFilteredProjects] = useState<Project[]>(projects);
+  const [filteredProjects, setFilteredProjects] = useState<ProjectMetadata[]>(projects);
   const [isLoading, setIsLoading] = useState(false);
   const [mounted, setMounted] = useState(false);
 
-  const availableTags = getAllProjectTags();
+  // Get all unique tags from projects
+  const availableTags = (() => {
+    const tagIds = new Set<string>();
+    projects.forEach(project => {
+      project.tags.forEach(tagId => tagIds.add(tagId));
+    });
+    return Array.from(tagIds);
+  })();
 
   useEffect(() => {
     setMounted(true);
@@ -28,13 +35,17 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
     
     // Simulate filtering delay for smooth transition
     const timer = setTimeout(() => {
-      const filtered = filterProjectsByTags(selectedTags);
+      const filtered = selectedTags.length === 0 
+        ? projects 
+        : projects.filter(project => 
+            selectedTags.every(tagId => project.tags.includes(tagId))
+          );
       setFilteredProjects(filtered);
       setIsLoading(false);
     }, 150);
 
     return () => clearTimeout(timer);
-  }, [selectedTags]);
+  }, [selectedTags, projects]);
 
   const handleTagToggle = (tagId: string) => {
     setSelectedTags((prev: string[]) => 
@@ -74,7 +85,7 @@ export function ProjectGallery({ projects }: ProjectGalleryProps) {
         <GallerySkeleton />
       ) : filteredProjects.length > 0 ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-in fade-in duration-500">
-          {filteredProjects.map((project: Project, index: number) => (
+          {filteredProjects.map((project: ProjectMetadata, index: number) => (
             <div
               key={project.slug}
               className="animate-in fade-in slide-in-from-bottom-4"

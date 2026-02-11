@@ -1,0 +1,545 @@
+# MDX Formatting Guide
+
+This comprehensive guide demonstrates all available MDX formatting features for project documentation. Use this as a reference when creating new projects.
+
+:::info
+**Quick Start**: This guide is organized by feature type. Jump to any section using the table of contents on the right.
+:::
+
+## Overview
+
+Your portfolio supports rich MDX content with custom React components, syntax highlighting, interactive media, and more. All components are theme-aware and fully responsive.
+
+## Typography & Text Formatting
+
+### Basic Text Styling
+
+You can use **bold text** for emphasis, *italic text* for subtlety, and ***bold italic*** for both. Use `inline code` for technical terms, file names, or short code snippets like `npm install` or `GPIO`.
+
+### Headings Hierarchy
+
+Headings automatically generate IDs and appear in the table of contents:
+- **H1** (`#`) - Project title only (one per page)
+- **H2** (`##`) - Main sections (shown in TOC, includes bottom border)
+- **H3** (`###`) - Subsections (shown in TOC, indented)
+
+All headings include automatic scroll margin for better anchor navigation.
+
+#### This is an H4 Heading
+
+H4 headings and below don't appear in the table of contents but are still useful for organizing content within sections.
+
+##### This is an H5 Heading
+
+Even smaller headings are available when you need fine-grained organization.
+
+###### This is an H6 Heading
+
+The smallest heading level, rarely needed but available.
+
+### Links
+
+Links are automatically enhanced with external link indicators. Here's an [internal link](#media-images-videos-3d) and an [external link](https://github.com).
+
+External links automatically:
+- Open in a new tab
+- Include `rel="noopener noreferrer"`
+- Show an external link icon
+
+### Inline Code & Technical Terms
+
+Use inline code for: `variables`, `function_names()`, `file.txt`, or technical identifiers like `Wi-Fi`, `I2C`, `PWM`, and `HTTP`.
+
+The inline code styling is distinct from regular text with a subtle background and border.
+
+## Lists
+
+### Unordered Lists
+
+- First item with standard bullet
+- Second item with more content
+  - Nested item level 1
+  - Another nested item
+    - Deeply nested item
+- Back to top level
+- List items have improved spacing
+
+### Ordered Lists
+
+1. First sequential item
+2. Second sequential item
+   1. Nested numbered item A
+   2. Nested numbered item B
+      1. Deeply nested item i
+      2. Deeply nested item ii
+   3. Back to second level
+3. Third top-level item
+4. Fourth item demonstrates consistent numbering
+
+### Mixed Lists
+
+You can also mix ordered and unordered lists:
+
+1. First ordered item
+   - Unordered nested item
+   - Another bullet point
+     - Even deeper nesting
+2. Second ordered item
+   - Mix and match as needed
+3. Lists maintain proper indentation
+
+## Media: Images, Videos, & 3D
+
+### Images
+
+Images can be added using standard Markdown syntax or the enhanced ImageZoom component for click-to-zoom functionality.
+
+**Standard Markdown Image:**
+
+![Example placeholder image](/projects/mdx-formatting-guide/Placeholder_Image1.png)
+
+**Enhanced ImageZoom Component:**
+
+<ImageZoom 
+  src="/projects/mdx-formatting-guide/Placeholder_Image2.png" 
+  alt="Interactive demonstration image" 
+  caption="Click to zoom and view in full screen"
+/>
+
+#### Image Syntax
+
+```mdx
+<!-- Standard Markdown -->
+![Alt text](/path/to/image.jpg)
+
+<!-- Enhanced with zoom -->
+<ImageZoom 
+  src="/path/to/image.jpg" 
+  alt="Description of image" 
+  caption="Optional caption text"
+/>
+```
+
+:::tip
+Use ImageZoom for technical diagrams, screenshots, or any image that benefits from detailed inspection. Users can click to view in full screen.
+:::
+
+### Videos
+
+Embed videos using HTML5 video tags with responsive styling:
+
+<div className="my-8 rounded-lg overflow-hidden border border-border">
+  <video 
+    controls 
+    className="w-full"
+    poster="/projects/mdx-formatting-guide/Placeholder_Image1.png"
+  >
+    <source src="/projects/mdx-formatting-guide/Placeholder_Video.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+</div>
+
+#### Video Syntax
+
+```mdx
+<div className="my-8 rounded-lg overflow-hidden border border-border">
+  <video 
+    controls 
+    className="w-full"
+    poster="/projects/mdx-formatting-guide/Placeholder_Image1.png"
+  >
+    <source src="/projects/mdx-formatting-guide/Placeholder_Video.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+</div>
+```
+
+### 3D Models
+
+Interactive 3D models can be embedded using the ModelViewer component. Models support orbit controls, zoom, and pan.
+
+:::info
+**3D Model Viewer Syntax**
+
+The ModelViewer component supports GLB and GLTF model formats:
+
+```mdx
+<ModelViewer modelUrl="/models/your-model.glb" />
+```
+
+**Features:**
+- Interactive orbit controls (click and drag to rotate)
+- Mouse wheel to zoom in/out
+- Theme-aware lighting
+- Optimized loading with suspense
+- Supports GLB and GLTF formats
+
+**Note:** Due to React 19 compatibility limitations with Three.js libraries, the 3D model viewer is currently available for React 18 projects. For React 19 projects, consider using embedded images or videos of your 3D models until library compatibility is updated.
+:::
+
+## Code Blocks
+
+Code blocks feature syntax highlighting, copy buttons, and optional filenames.
+
+### Code Block Features
+
+All code blocks include:
+- ✅ **Syntax highlighting** for 30+ programming languages
+- ✅ **Copy button** appears on hover (top-right corner)
+- ✅ **Line numbers** visible on hover
+- ✅ **Theme-aware styling** (light/dark mode)
+- ✅ **Proper overflow** handling for long lines
+
+### Python Example
+
+```python
+def calculate_efficiency(power_in, power_out):
+    """Calculate system efficiency as a percentage."""
+    if power_in == 0:
+        return 0
+    return (power_out / power_in) * 100
+
+# Example usage
+efficiency = calculate_efficiency(1000, 850)
+print(f"System efficiency: {efficiency}%")
+```
+
+### JavaScript Example
+
+```javascript
+// Event listener with async/await
+async function fetchProjectData(slug) {
+  try {
+    const response = await fetch(`/api/projects/${slug}`);
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error('Failed to fetch project:', error);
+    throw error;
+  }
+}
+```
+
+### TypeScript Example
+
+```typescript
+interface ProjectMetadata {
+  slug: string;
+  title: string;
+  tags: string[];
+  featured?: boolean;
+  hidden?: boolean;
+}
+
+const createProject = (data: ProjectMetadata): Project => {
+  return {
+    ...data,
+    createdAt: new Date(),
+  };
+};
+```
+
+### C++ Example
+
+```cpp
+#include <iostream>
+#include <vector>
+
+class MotorController {
+private:
+    int pin;
+    int speed;
+    
+public:
+    MotorController(int p) : pin(p), speed(0) {}
+    
+    void setSpeed(int s) {
+        speed = constrain(s, 0, 255);
+        analogWrite(pin, speed);
+    }
+    
+    int getSpeed() const {
+        return speed;
+    }
+};
+```
+
+### Bash/Shell Commands
+
+```bash
+# Install dependencies
+pnpm install
+
+# Run development server
+pnpm dev
+
+# Build for production
+pnpm build
+
+# Deploy to Vercel
+vercel --prod
+```
+
+:::tip
+**Language Support**: Syntax highlighting works for Python, JavaScript, TypeScript, C++, C, Java, Rust, Go, Bash, JSON, YAML, SQL, and 20+ more languages.
+:::
+
+## Callouts & Alerts
+
+Callouts are custom components for highlighting important information. Five types are available:
+
+:::info
+**Information callouts** use blue styling with an info icon. Perfect for general information, tips about the system, or contextual details.
+:::
+
+:::tip
+**Tips and recommendations** use purple styling with a lightbulb icon. Great for best practices, helpful hints, or insider knowledge.
+:::
+
+:::warning
+**Warnings** use yellow/amber styling with a triangle icon. Use for potential issues, things to watch out for, or important considerations.
+:::
+
+:::danger
+**Danger/Error alerts** use red styling with an alert icon. Reserve for critical warnings, errors, or things that could cause failures.
+:::
+
+:::success
+**Success messages** use green styling with a checkmark icon. Ideal for showcasing achievements, test results, or positive outcomes.
+:::
+
+### Callout Syntax
+
+```mdx
+:::type
+Your content here. Can include **markdown** formatting.
+:::
+
+Available types: info, tip, warning, danger, success
+```
+
+## Metrics & Statistics
+
+Use the MetricsGrid component to display key statistics in a visually appealing grid format.
+
+<MetricsGrid columns={2}>
+  <Metric 
+    label="Reliability" 
+    value="99.9%" 
+    description="Uptime over 90 days"
+  />
+  <Metric 
+    label="Performance" 
+    value="&lt;100ms" 
+    description="Average response time"
+  />
+  <Metric 
+    label="Cost Savings" 
+    value="75%" 
+    description="vs. commercial solutions"
+  />
+  <Metric 
+    label="Efficiency" 
+    value="94%" 
+    description="Energy conversion rate"
+  />
+</MetricsGrid>
+
+### Metrics Syntax
+
+```mdx
+<MetricsGrid columns={2}>
+  <Metric 
+    label="Label Text" 
+    value="Value" 
+    description="Optional description"
+  />
+</MetricsGrid>
+
+columns: 2, 3, or 4 (default: 2)
+```
+
+**Note:** When using `<` or `>` symbols in attribute values, escape them as `&lt;` and `&gt;` to avoid JSX parsing errors.
+
+Example:
+```mdx
+<Metric label="Response Time" value="&lt;100ms" />
+```
+
+### Alternative Layout
+
+<MetricsGrid columns={3}>
+  <Metric label="Users" value="1,234" />
+  <Metric label="Projects" value="56" />
+  <Metric label="Success Rate" value="98%" />
+</MetricsGrid>
+
+## Blockquotes
+
+Blockquotes are styled with a left border and background. Perfect for pull quotes, citations, or important statements:
+
+> This is a blockquote with enhanced styling. Use it for pull quotes, important statements, or citations from papers and documentation.
+>
+> Blockquotes can span multiple paragraphs and include **bold** or *italic* text.
+
+---
+
+## Tables
+
+Tables are automatically styled with hover effects, proper borders, and responsive scrolling.
+
+| Component | Purpose | Props |
+|-----------|---------|-------|
+| Callout | Alert boxes | type, title, children |
+| Metric | Statistics display | label, value, description |
+| MetricsGrid | Metrics container | columns, children |
+| CodeBlock | Code with copy button | filename, showLineNumbers |
+| ImageZoom | Zoomable images | src, alt, caption |
+
+### Complex Table Example
+
+| Parameter | Min | Max | Default | Unit | Description |
+|-----------|-----|-----|---------|------|-------------|
+| Voltage | 3.3 | 5.0 | 5.0 | V | Operating voltage |
+| Current | 0 | 500 | 100 | mA | Current draw |
+| Temperature | -20 | 85 | 25 | °C | Operating temp |
+---
+
+## Horizontal Rules
+
+Use horizontal rules (three dashes) to create visual separation between major sections:
+
+```mdx
+---
+```
+
+The horizontal rule above this section is an example.
+
+## Best Practices
+
+:::tip
+**Content Writing Guidelines**
+- Start with H1 for the project title (one per page)
+- Use H2 for major sections
+- Use H3 for subsections
+- Don't skip heading levels
+- Add descriptive alt text to all images
+- Use callouts to highlight important information
+- Include code comments for clarity
+- Provide context before showing code examples
+:::
+
+### Recommended Project Structure
+
+A typical project documentation should follow this structure:
+
+1. **Introduction** (H1) - Project title and brief overview
+2. **Project Overview** (H2) - Goals, context, and motivation
+3. **Technical Details** (H2) - Implementation specifics
+   - Hardware/Software Components (H3)
+   - Design Decisions (H3)
+4. **Results & Outcomes** (H2) - Metrics, achievements, learnings
+5. **Future Work** (H2) - Potential improvements and next steps
+
+### Combining Components
+
+Callouts work great with code blocks for tutorials:
+
+:::info
+**Example: Sensor Calibration**
+
+Here's how to implement calibration for analog sensors:
+:::
+
+```python
+def calibrate_sensor(raw_value, offset=2.5, scale=0.98):
+    """Apply calibration to raw sensor reading."""
+    calibrated = raw_value * scale + offset
+    return calibrated
+
+# Usage
+reading = calibrate_sensor(analog_read(pin))
+```
+
+:::success
+This calibration achieved ±0.1% accuracy across the full measurement range!
+:::
+
+## Component Quick Reference
+
+### Available Custom Components
+
+| Component | Purpose | Key Features |
+|-----------|---------|--------------|
+| **Callout** | Alert boxes | 5 types: info, tip, warning, danger, success |
+| **Metric** | Single statistic | Label, value, optional description |
+| **MetricsGrid** | Stats container | 2, 3, or 4 column layouts |
+| **ImageZoom** | Zoomable images | Click to zoom, captions supported |
+| **ModelViewer** | 3D models | Interactive GLB/GLTF viewer |
+| **CodeBlock** | Code display | Syntax highlight, copy button, line numbers |
+
+### Standard HTML Elements Enhanced
+
+- **Links** - External link indicators, auto-open
+- **Tables** - Hover effects, responsive scrolling
+- **Blockquotes** - Styled borders and backgrounds
+- **Lists** - Custom markers with primary color
+- **Headings** - Serif font, auto-anchors, scroll margins
+- **Code** - Inline code with background and border
+
+## Feature Checklist
+
+- ✅ 6 Heading levels (H1-H6)
+- ✅ External link indicators
+- ✅ Syntax highlighting (30+ languages)
+- ✅ Copy buttons on code blocks
+- ✅ Hover-visible line numbers
+- ✅ 5 Callout/alert types
+- ✅ Responsive tables with hover
+- ✅ Enhanced blockquotes
+- ✅ Metrics grids (2, 3, 4 columns)
+- ✅ Click-to-zoom images
+- ✅ Interactive 3D models
+- ✅ Video embedding
+- ✅ Automatic heading IDs
+- ✅ Table of contents generation
+- ✅ Dark mode support
+- ✅ Scroll margin on anchors
+
+## Accessibility
+
+All components are built with accessibility in mind:
+
+- Semantic HTML elements (`nav`, `article`, `section`, etc.)
+- Proper heading hierarchy (no skipped levels)
+- Alt text support for images
+- Keyboard navigation support
+- ARIA labels where appropriate
+- High contrast in both light and dark themes
+- Focus indicators on interactive elements
+- Screen reader friendly
+
+## Summary
+
+This formatting guide demonstrates all available features for creating rich, interactive project documentation. 
+
+**Key Takeaways:**
+- Use semantic headings to create clear structure
+- Leverage callouts to highlight important information
+- Display metrics in grids for visual impact
+- Add images, videos, and 3D models to enhance understanding
+- Include well-commented code examples
+- Always provide context and explanations
+
+:::tip
+**Managing Visibility**: Set `hidden: true` in your project's `metadata.ts` to hide it from the gallery while keeping it accessible via direct URL for testing and review.
+
+```typescript
+export const metadata = {
+  // ...other fields
+  hidden: true, // Hide from gallery
+};
+```
+:::tip
+Set `hidden: true` in your project's `metadata.ts` to hide it from the gallery while keeping it accessible via direct URL for testing and review.
+:::

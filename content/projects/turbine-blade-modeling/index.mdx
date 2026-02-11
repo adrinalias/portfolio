@@ -1,0 +1,81 @@
+# Turbine Blade Generation & Modelling
+
+Developed MATLAB code to transform T6 turbine airfoil cross-sections into curved airfoils for rotors and stators, then automated SolidWorks import for a complete multistage turbine assembly.
+
+## Project Overview
+
+As a Research Assistant at TESLAB, I worked on blade designs for a multistage Helium Turbine. The challenge was to transform standard T6 turbine airfoil cross-sections into properly curved airfoils suitable for both rotors and stators in the turbine stages.
+
+This parametric approach enables rapid design exploration and optimization for different operating conditions, significantly accelerating the turbomachinery design cycle.
+
+## Calculation & Transformation
+
+Used entry/exit angles and curvature radii to mathematically bend T6 profiles in MATLAB. The algorithm handles the geometric transformation while maintaining airfoil characteristics critical for aerodynamic performance.
+
+### Bending Algorithm
+
+```matlab
+% MATLAB - Blade Profile Bending Algorithm
+function curved_profile = bendAirfoil(t6_points, entry_angle, exit_angle, radius)
+    % Calculate curvature parameters
+    theta_total = exit_angle - entry_angle;
+    num_points = size(t6_points, 1);
+    
+    % Apply bending transformation
+    for i = 1:num_points
+        theta = entry_angle + (i/num_points) * theta_total;
+        x = t6_points(i,1);
+        y = t6_points(i,2);
+        
+        % Polar transformation
+        r = radius + y;
+        curved_profile(i,:) = [r*cos(theta), r*sin(theta)];
+    end
+end
+```
+
+### Key Parameters
+- **Entry Angle:** Flow angle at blade leading edge
+- **Exit Angle:** Flow angle at blade trailing edge
+- **Radius:** Mean radius of blade row
+- **T6 Profile:** Standard airfoil coordinates (suction and pressure sides)
+
+The transformation maintains the thickness distribution and camber characteristics of the original T6 profile while adapting it to the required turning angle and radial position.
+
+## CAD Integration
+
+Exported the calculated profile points and imported them into SolidWorks to create 3D models of rotors and stators. Developed a custom macro to automate the point import workflow, dramatically speeding up the design iteration process.
+
+### Workflow Automation
+1. **MATLAB:** Generate curved airfoil coordinates
+2. **Export:** Save points as text file in SolidWorks-compatible format
+3. **SolidWorks Macro:** Automatically import points and create splines
+4. **3D Modeling:** Extrude profiles to create blade geometry
+5. **Assembly:** Pattern blades around rotor/stator disks
+
+This automation reduced the time required to create a single blade from hours to minutes, enabling rapid iteration and optimization.
+
+## Analysis & Validation
+
+Conducted preliminary **Finite Element Analysis (FEA)** in Ansys to check for stress concentrations and ensure structural integrity under operating conditions. This analysis identified potential failure points early in the design phase.
+
+### FEA Objectives
+- **Centrifugal Loading:** Evaluate stresses from high rotational speeds
+- **Thermal Gradients:** Assess thermally-induced stresses
+- **Vibration Modes:** Identify natural frequencies to avoid resonance
+- **Factor of Safety:** Ensure adequate margins for material yield
+
+The analysis revealed that the blade root required fillet radii modification to reduce stress concentration factors below acceptable limits.
+
+## Outcomes
+
+### Deliverables
+- **Parametric Code:** Easily modifiable MATLAB tool that can bend any turbine blade profile with different geometric parameters
+- **CAD Assembly:** Complete multistage turbine and compressor assembly in SolidWorks
+- **Documentation:** Technical report for research proposal submission
+- **Validated Design:** FEA-verified blade geometry ready for manufacturing
+
+### Impact
+The parametric approach enables rapid design exploration for different operating conditions. Designers can now modify key parameters (entry/exit angles, radii, stage count) and regenerate the entire turbine assembly in a fraction of the time required by manual CAD methods.
+
+This tool continues to be used at TESLAB for ongoing turbomachinery research projects, demonstrating its value as a reusable design asset.

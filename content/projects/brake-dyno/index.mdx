@@ -1,0 +1,94 @@
+# Brake Dyno - Custom DAQ System
+
+Development of custom data acquisition system with hardware, firmware, and GUI for Formula SAE brake testing.
+
+## Project Overview
+
+As part of a 6-person Formula SAE team, I developed the complete data acquisition system from scratch. The goal was to measure brake performance characteristics and validate manufacturer claims about coefficient of friction at various temperatures.
+
+The rig uses a motor to spin a brake assembly while measuring torque, speed, and temperature to enable data-driven design decisions for improved lap times.
+
+## Hardware & Electronics Development
+
+The system is built around an **SAME51 microcontroller**. I designed custom signal conditioning circuits including voltage dividers and RC filters to process analog sensor signals.
+
+The hardware interfaces with:
+- **IR sensor** for rotational speed measurement
+- **Load cells** for torque measurement
+- **Thermocouples** for temperature monitoring
+
+All components were carefully selected and integrated to achieve the 20 Hz sampling rate requirement while maintaining signal integrity.
+
+## Firmware Development
+
+```cpp
+// C++ Firmware for SAME51 MCU
+// Real-time data processing at 20 Hz
+void loop() {
+  // Read sensor inputs
+  float torque = readLoadCell();
+  float speed = readIRSensor();
+  float temp = readThermocouple();
+  
+  // Calculate coefficient of friction
+  float mu = calculateCoF(torque, speed, temp);
+  
+  // Transmit via Serial for GUI
+  sendData(torque, speed, temp, mu);
+}
+```
+
+The firmware is programmed in C++ to handle:
+- Real-time sensor data acquisition
+- Signal processing and filtering
+- CAN communication with motor controller
+- Serial transmission to Python GUI
+
+## Software Development
+
+Created a Python GUI for real-time data visualization and logging. The interface displays live graphs of:
+
+- Thermocouple temperature
+- Pad temperature average
+- Applied torque
+- Calculated coefficient of friction
+
+All data is logged to CSV files for post-processing analysis and comparison with manufacturer specifications.
+
+## Results & Impact
+
+### Performance Metrics
+
+- **20 Hz** real-time processing and logging
+- Successfully produced coefficient of friction vs. temperature graphs
+- Validated manufacturer claims with empirical data
+
+### Cost Optimization
+
+By focusing on core requirements rather than over-engineering, we achieved a **94% cost reduction**:
+- Commercial NI DAQ: **$8,200**
+- Our custom solution: **$500**
+
+This dramatic cost savings demonstrates the value of understanding requirements and designing fit-for-purpose solutions.
+
+### Recognition
+
+**2nd Place** at UTA Innovation Day 2025
+
+## Technical Specifications
+
+- **Microcontroller:** SAME51
+- **Sampling Rate:** 20 Hz
+- **Temperature Range:** 0-500°C (thermocouples)
+- **Torque Measurement:** Load cell with custom amplification
+- **Speed Detection:** IR reflective sensor
+- **Communication:** Serial (USB) and CAN bus
+- **Power Supply:** 12V DC with regulated 5V/3.3V rails
+
+## Future Improvements
+
+Potential enhancements for the next iteration:
+- Increase sampling rate to 100 Hz for higher resolution
+- Add wireless data transmission (ESP32 module)
+- Implement onboard data logging (SD card)
+- Expand to measure additional parameters (vibration, pad wear)

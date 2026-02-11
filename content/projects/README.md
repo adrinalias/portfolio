@@ -1,53 +1,204 @@
 # Project Content Structure
 
-This directory contains all project content written in MDX (Markdown + JSX).
+This directory contains all project content written in MDX (Markdown + JSX). Each project is self-contained with its own metadata and content files.
 
 ## Directory Structure
 
 ```
-content/
-  projects/
-    brake-dyno/
-      index.mdx        # Main project content
-      metadata.ts      # Project metadata (tags, date, category, etc.)
-      images/          # Project-specific images
-    project-slug/
-      index.mdx
-      metadata.ts
-      images/
+content/projects/
+├── README.md                     # This file
+├── brake-dyno/
+│   ├── index.mdx               # Main project content (markdown + JSX)
+│   ├── metadata.ts             # Project metadata
+│   └── images/                 # (Optional) Project-specific images
+├── iot-smart-blinds/
+│   ├── index.mdx
+│   ├── metadata.ts
+│   └── images/
+├── air-heaters/
+│   ├── index.mdx
+│   ├── metadata.ts
+│   └── images/
+└── your-new-project/
+    ├── index.mdx
+    ├── metadata.ts
+    └── images/
 ```
+
+## Project Files
+
+### metadata.ts
+
+Defines project listing information (used in galleries, cards, and navigation):
+
+```typescript
+export const metadata = {
+  slug: 'project-name',                    // Unique identifier
+  title: 'Project Title',                  // Display name
+  shortDescription: 'One-line summary',    // Used in cards
+  tags: ['tag1', 'tag2'],                  // For filtering
+  date: '2025-02-11',                      // ISO format
+  featured: false,                         // Homepage feature flag
+  category: 'Category',                    // Grouping
+  links: {                                 // Optional links
+    github: 'https://github.com/...',
+    demo: 'https://demo.example.com',
+    external: 'https://example.com',
+  },
+};
+```
+
+### index.mdx
+
+Contains the full project description using Markdown + JSX. Automatically compiled to React components.
 
 ## MDX Content Guidelines
 
-### Headings
+### Headings (Auto Table of Contents)
 
-Use proper heading hierarchy for automatic table of contents generation:
+The system generates a table of contents from H2 and H3 headings:
 
-```mdx
-# Project Title (H1 - used once for main title)
+```markdown
+# Project Title (H1 - main title, not in TOC)
 
-## Section Title (H2 - major sections)
+## Major Section (H2 - appears in TOC)
 
-### Subsection (H3 - detailed topics)
+### Subsection (H3 - appears in TOC)
 ```
 
-### Code Blocks
+The table of contents appears automatically in a sidebar on the project page.
 
-Specify the language for proper syntax highlighting:
+### Code Blocks with Syntax Highlighting
 
-````mdx
-```cpp
-// Your C++ code here
-void setup() {
-  // ...
+Always specify the language:
+
+```markdown
+\`\`\`cpp
+// C++ example
+void setup() { }
+\`\`\`
+
+\`\`\`python
+# Python example
+def hello():
+    print("world")
+\`\`\`
+
+\`\`\`typescript
+// TypeScript example
+const greeting: string = "hello";
+\`\`\`
+
+\`\`\`js
+// JavaScript example
+console.log("hello");
+\`\`\`
+
+\`\`\`bash
+# Shell/bash
+npm install package-name
+\`\`\`
+
+\`\`\`json
+{
+  "key": "value"
 }
+\`\`\`
 ```
 
-```python
-# Your Python code here
-def main():
-    pass
+### Images
+
+Reference images using absolute paths:
+
+```markdown
+![Description of image](/projects/project-slug/image-name.png)
 ```
+
+**Cover image** (auto-detected):
+- Place at: `public/projects/[slug]/cover.jpg` or `cover.png`
+- Automatically used as the hero image on the project page
+- Falls back to `coverImage` in metadata if not found
+
+### Text Formatting
+
+```markdown
+**Bold text**
+*Italic text*
+~~Strikethrough~~
+`inline code`
+
+[Links](https://example.com)
+```
+
+### Lists
+
+```markdown
+- Unordered list item
+- Another item
+  - Nested item
+
+1. Ordered list item
+2. Another item
+```
+
+### Emphasis Blocks (Callouts)
+
+Create styled callout boxes:
+
+```markdown
+:::tip
+Helpful tip or best practice.
+:::
+
+:::warning
+Warning or caution message.
+:::
+
+:::note
+General note or information.
+:::
+```
+
+## Working with Images
+
+**Cover Images** (hero image on project page):
+```
+public/projects/my-project/cover.jpg
+```
+
+**Content Images** (referenced in MDX):
+```
+public/projects/my-project/diagram.png
+markdown reference: ![Diagram](/projects/my-project/diagram.png)
+```
+
+Or optionally organize in `images/` subfolder:
+```
+public/projects/my-project/images/diagram.png
+markdown reference: ![Diagram](/projects/my-project/images/diagram.png)
+```
+
+## How It Works
+
+1. **Build Time**: The system scans this directory and:
+   - Reads `metadata.ts` from each project folder
+   - Compiles `index.mdx` to React components
+   - Generates table of contents from headings
+   - Pre-renders all project pages as static HTML
+
+2. **Runtime**: Projects are served as fast static pages with no client-side compilation
+
+3. **No Duplication**: Content lives in MDX files, making edits simple and maintainable
+
+## Adding a New Project
+
+1. Create folder: `content/projects/my-new-project/`
+2. Create `metadata.ts` with project info
+3. Create `index.mdx` with project content
+4. (Optional) Add `public/projects/my-new-project/cover.jpg`
+5. Run `pnpm build` - done!
+
+See [PROJECTS_GUIDE.md](../PROJECTS_GUIDE.md) for detailed instructions.
 ````
 
 ### Images

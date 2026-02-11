@@ -2,7 +2,6 @@ export const metadata = {
   slug: 'turbine-blade-modeling',
   title: 'Turbine Blade Generation & Modelling',
   shortDescription: 'Parametric blade design tool for multistage helium turbine using MATLAB and SolidWorks with FEA validation.',
-  coverImage: '/placeholder.svg',
   tags: ['cad', 'simulation', 'research'],
   date: '2024-07-01',
   featured: false,

@@ -24,24 +24,8 @@ export function HeroSection() {
   return (
     <section className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-accent/10 flex flex-col relative">
       <div className="flex-1 flex items-center justify-center relative overflow-hidden">
-        {/* Header with social links and theme toggle */}
+        {/* Header with theme toggle */}
         <div className="absolute top-4 right-4 z-20 flex items-center space-x-2">
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => window.open("https://linkedin.com/in/adrinalias", "_blank")}
-            className="hover:bg-accent"
-          >
-            <LinkedInIcon />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            onClick={() => window.open("https://github.com/adrin-alias/", "_blank")}
-            className="hover:bg-accent"
-          >
-            <GitHubIcon />
-          </Button>
           <ThemeToggle />
         </div>
 
@@ -50,11 +34,21 @@ export function HeroSection() {
           <h1 className="font-serif font-black text-4xl md:text-6xl lg:text-7xl text-foreground mb-4">
             Adrin Alias
           </h1>
-          <p className="font-sans text-lg md:text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
+          <p className="font-sans text-lg md:text-xl text-muted-foreground mb-6 max-w-2xl mx-auto">
             Mechanical Engineer
             <br />
             Graduated December 2025
           </p>
+          
+          <Button
+            size="lg"
+            variant="outline"
+            className="px-8 gap-2 border-primary/20 hover:border-primary/50"
+            onClick={() => window.open("https://linkedin.com/in/adrinalias", "_blank")}
+          >
+            <LinkedInIcon />
+            Contact Me
+          </Button>
         </div>
 
         {/* Scroll indicator */}

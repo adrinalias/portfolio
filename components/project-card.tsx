@@ -33,11 +33,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
   return (
     <Link href={`/projects/${project.slug}`} className="block group h-full">
       <Card 
-        className="flex flex-col h-full overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg hover:border-primary/50 p-0 gap-0"
+        className="flex flex-col h-full overflow-hidden cursor-pointer transition-all duration-300 hover:shadow-lg hover:border-primary/50 p-0 gap-0 transform-gpu"
       >
         {/* Cover Image Container */}
         <div 
           className="relative aspect-[4/3] overflow-hidden bg-muted"
+          style={{ WebkitMaskImage: '-webkit-radial-gradient(white, black)' }}
           onClick={handleImageClick}
         >
           <Image

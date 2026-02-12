@@ -41,13 +41,19 @@ export function HeroSection() {
           </p>
           
           <Button
+            asChild
             size="lg"
             variant="outline"
-            className="px-8 gap-2 border-primary/20 hover:border-primary/50"
-            onClick={() => window.open("https://linkedin.com/in/adrinalias", "_blank")}
+            className="px-8 gap-2 border-primary/20 hover:border-primary/50 cursor-pointer"
           >
-            <LinkedInIcon />
-            Contact Me
+            <a
+              href="https://linkedin.com/in/adrinalias"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <LinkedInIcon />
+              Contact Me
+            </a>
           </Button>
         </div>
 

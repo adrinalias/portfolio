@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
@@ -15,7 +15,17 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
   const tags = getTagsByIds(project.tags);
+
+  useEffect(() => {
+    const hasTouch =
+      window.matchMedia('(hover: none), (pointer: coarse)').matches ||
+      'ontouchstart' in window ||
+      navigator.maxTouchPoints > 0;
+
+    setIsTouchDevice(hasTouch);
+  }, []);
 
   const handleImageClick = (e: React.MouseEvent) => {
     // Allow navigation if clicking the action button
@@ -54,7 +64,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             className={`
               absolute inset-0 bg-white/90 dark:bg-black/80 backdrop-blur-[2px]
               transition-all duration-300 flex flex-col justify-center items-center p-6 text-center
-              ${isExpanded ? 'opacity-100' : 'opacity-0 md:group-hover:opacity-100'}
+              ${isExpanded ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none md:group-hover:opacity-100 md:group-hover:pointer-events-auto'}
             `}
           >
             <p className="text-zinc-800 dark:text-white/90 text-sm mb-6 leading-relaxed line-clamp-4 max-w-[90%] font-medium">
@@ -78,8 +88,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
               ))}
             </div>
 
-            {/* View Project Button (Mobile Only) */}
-            <div className="md:hidden action-button bg-secondary/90 text-secondary-foreground hover:bg-secondary border border-border/50 h-9 px-4 py-2 inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
+            {/* View Project Button (Touch Devices) */}
+            <div
+              className={`action-button bg-secondary/90 text-secondary-foreground hover:bg-secondary border border-border/50 h-9 px-4 py-2 items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 ${
+                isTouchDevice ? 'inline-flex' : 'hidden'
+              }`}
+            >
               View Project <ArrowRight className="ml-2 h-4 w-4 opacity-50" />
             </div>
           </div>

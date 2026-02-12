@@ -1,3 +1,4 @@
+import { Children, isValidElement } from 'react';
 import { CodeBlock } from './code-block';
 import { Callout } from './callout';
 import { Metric, MetricsGrid } from './metrics-grid';
@@ -69,12 +70,45 @@ export const mdxComponents = {
   ),
   
   // Paragraph styling
-  p: (props: any) => (
-    <p 
-      className="leading-relaxed text-base my-4 text-foreground" 
-      {...props} 
-    />
-  ),
+  p: (props: any) => {
+    const blockTags = new Set([
+      'div',
+      'figure',
+      'table',
+      'pre',
+      'ul',
+      'ol',
+      'h1',
+      'h2',
+      'h3',
+      'h4',
+      'h5',
+      'h6',
+      'section',
+      'article',
+    ]);
+
+    const hasBlockChild = Children.toArray(props.children).some((child) => {
+      if (!isValidElement(child)) return false;
+      if (child.type === ImageZoom || child.type === Callout || child.type === MetricsGrid) {
+        return true;
+      }
+      return typeof child.type === 'string' && blockTags.has(child.type);
+    });
+
+    if (hasBlockChild) {
+      return (
+        <div className="leading-relaxed text-base my-4 text-foreground" {...props} />
+      );
+    }
+
+    return (
+      <p
+        className="leading-relaxed text-base my-4 text-foreground"
+        {...props}
+      />
+    );
+  },
   
   // Enhanced pre/code blocks
   pre: ({ children, ...props }: any) => {

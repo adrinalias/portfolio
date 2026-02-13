@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect, useRef } from 'react';
 import { Button } from "@/components/ui/button"
 import { ThemeToggle } from "@/components/theme-toggle"
 import { ChevronDown } from "lucide-react"
@@ -17,13 +18,65 @@ const GitHubIcon = () => (
 )
 
 export function HeroSection() {
+  const [showScrollHint, setShowScrollHint] = useState(false);
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+
+    const observer = new IntersectionObserver((entries) => {
+      const [entry] = entries;
+
+      if (entry.isIntersecting) {
+        // User is viewing the hero section (threshold met)
+        timeout = setTimeout(() => {
+          setShowScrollHint(true);
+        }, 5000);
+      } else {
+        // User scrolled away
+        clearTimeout(timeout);
+        setShowScrollHint(false);
+      }
+    }, {
+      threshold: 0.8
+    });
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      clearTimeout(timeout);
+      observer.disconnect();
+    };
+  }, []);
+
   const scrollToProjects = () => {
     document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-primary/10 via-background to-accent/10 flex flex-col relative">
-      <div className="flex-1 flex items-center justify-center relative overflow-hidden">
+    <section ref={sectionRef} className="min-h-[100dvh] bg-background flex flex-col relative overflow-hidden">
+      {/* Background Layers Construction (Windows 11 Mica-style emulation) */}
+      
+      {/* 1. Base Luminosity Layer (Defines the light/dark structure) */}
+      <div className="absolute inset-0 bg-gradient-to-br from-zinc-100 via-white to-zinc-50 dark:from-neutral-900 dark:via-black dark:to-neutral-950 z-0" />
+
+      {/* 2. Color Blend Layer (Injects the accent hue gently) */}
+      <div className="absolute inset-0 z-0 opacity-20 dark:opacity-30">
+        {/* Top-left glow - safe from text */}
+        <div className="absolute -top-[20%] -left-[10%] w-[70vw] h-[70vw] rounded-full bg-neutral-200/50 dark:bg-neutral-800/50 blur-[120px]" />
+        {/* Bottom-right glow - safe from text */}
+        <div className="absolute top-[30%] -right-[20%] w-[60vw] h-[60vw] rounded-full bg-neutral-200/50 dark:bg-neutral-800/50 blur-[120px]" />
+      </div>
+
+      {/* 3. Atmospheric Blur Layer (Smooths out the composition) */}
+      <div className="absolute inset-0 z-0 backdrop-blur-[80px]" />
+
+      {/* 4. Film Grain / Noise Layer (Texture) - High frequency static noise */}
+      <div className="absolute inset-0 z-0 opacity-[0.25] pointer-events-none mix-blend-overlay bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48ZmlsdGVyIGlkPSJ4Ij48ZmVUdXJYdWxlbmNlIHR5cGU9ImZyYWN0YWxOb2lzZSIgYmFzZUZyZXF1ZW5jeT0iMC44IiBudW1PY3RhdmVzPSIzIiBzdGl0Y2hUaWxlcz0ic3RpdGNoIi8+PC9maWx0ZXI+PHJlY3Qgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgZmlsbD0idHJhbnNwYXJlbnQiLz48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWx0ZXI9InVybCgjeCkiIG9wYWNpdHk9IjEwMCUiLz48L3N2Zz4=')]" />
+
+      <div className="flex-1 flex items-center justify-center relative overflow-hidden z-10">
         {/* Header with theme toggle */}
         <div className="absolute top-4 right-4 z-20 flex items-center space-x-2">
           <ThemeToggle />
@@ -58,14 +111,25 @@ export function HeroSection() {
         </div>
 
         {/* Scroll indicator */}
-        <button
-          onClick={scrollToProjects}
-          className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce text-muted-foreground hover:text-foreground transition-colors"
-          aria-label="Scroll to projects"
-        >
-          <ChevronDown className="w-8 h-8" />
-        </button>
+        <div className={`absolute bottom-24 md:bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-500 ${showScrollHint ? 'opacity-100' : 'opacity-100'}`}>
+          {showScrollHint && (
+            <span className="text-sm text-muted-foreground animate-in fade-in slide-in-from-bottom-4 duration-700">
+              Scroll to explore
+            </span>
+          )}
+          <button
+            onClick={scrollToProjects}
+            className="animate-bounce text-muted-foreground hover:text-foreground transition-colors p-2"
+            aria-label="Scroll to projects"
+          >
+            <ChevronDown className="w-8 h-8" />
+          </button>
+        </div>
       </div>
+
+
+      {/* Seamless Transition Gradient */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-background to-transparent z-[5] pointer-events-none" />
     </section>
   );
 }

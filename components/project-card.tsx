@@ -33,9 +33,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
       return;
     }
 
-    // Only toggle on mobile (when there's no hover support)
-    if (window.matchMedia('(hover: none)').matches) {
+    // Toggle on touch devices (coarse pointer or no hover capability)
+    const isTouch = window.matchMedia('(hover: none), (pointer: coarse)').matches;
+    if (isTouch) {
       e.preventDefault();
+      e.stopPropagation();
       setIsExpanded(!isExpanded);
     }
   };
@@ -55,9 +57,16 @@ export function ProjectCard({ project }: ProjectCardProps) {
             src={project.coverImage}
             alt={project.title}
             fill
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className={`object-cover transition-transform duration-500 ${
+              isTouchDevice 
+                ? (isExpanded ? 'scale-105' : 'scale-100') 
+                : 'group-hover:scale-105'
+            }`}
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           />
+
+          {/* Dark mode dimming layer */}
+          <div className="absolute inset-0 bg-black/0 dark:bg-black/20 pointer-events-none transition-colors duration-300" />
 
           {/* Overlay - appears on hover/tap */}
           <div 

@@ -139,3 +139,10 @@ html {
     @apply bg-background text-foreground;
   }
 }
+
+@media (hover: none) {
+  .no-hover-on-touch:hover {
+    background-color: transparent !important;
+    color: inherit !important;
+  }
+}

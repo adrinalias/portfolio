@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import Link from 'next/link';
@@ -19,6 +20,19 @@ export async function generateStaticParams() {
 
 interface PageProps {
   params: Promise<{ slug: string }>;
+}
+
+export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const projectData = await getProjectBySlug(slug);
+
+  if (!projectData) {
+    notFound();
+  }
+
+  return {
+    title: projectData.metadata.title,
+  };
 }
 
 export default async function ProjectPage({ params }: PageProps) {

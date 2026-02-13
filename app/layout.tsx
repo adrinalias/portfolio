@@ -20,7 +20,10 @@ const openSans = Open_Sans({
 })
 
 export const metadata: Metadata = {
-  title: "Adrin Alias - Mechanical Engineering Portfolio",
+  title: {
+    default: "Adrin's Engineering Portfolio",
+    template: "%s | Adrin's Engineering Portfolio",
+  },
   description: "Portfolio showcasing electromechanical projects, CAD designs, and technical skills.",
   generator: "Next.js",
 }

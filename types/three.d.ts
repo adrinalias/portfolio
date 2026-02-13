@@ -1,17 +1,11 @@
-import '@react-three/fiber';
+/* eslint-disable @typescript-eslint/no-empty-object-type */
+import { ThreeElements } from '@react-three/fiber';
 
-declare global {
+// Extend JSX IntrinsicElements with Three.js fiber elements for React 19
+declare module 'react' {
   namespace JSX {
-    interface IntrinsicElements {
-      primitive: any;
-      mesh: any;
-      boxGeometry: any;
-      meshStandardMaterial: any;
-      group: any;
-      ambientLight: any;
-      directionalLight: any;
-      pointLight: any;
-      spotLight: any;
+    interface IntrinsicElements extends ThreeElements {
+      primitive: { object: any; [key: string]: any };
     }
   }
 }

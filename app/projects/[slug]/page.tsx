@@ -32,6 +32,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: projectData.metadata.title,
+    description: projectData.metadata.shortDescription,
   };
 }
 
@@ -51,7 +52,7 @@ export default async function ProjectPage({ params }: PageProps) {
   });
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background overflow-x-clip">
       {/* Header with back button */}
       <header className="sticky top-0 z-50 border-b border-border bg-background/80 backdrop-blur-sm">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
@@ -66,7 +67,7 @@ export default async function ProjectPage({ params }: PageProps) {
       </header>
 
       {/* Hero Image */}
-      <div className="relative w-full h-[40vh] md:h-[60vh] bg-muted">
+      <div className="relative w-full h-[30vh] sm:h-[40vh] md:h-[60vh] bg-muted">
         <Image
           src={project.coverImage}
           alt={project.title}
@@ -78,10 +79,10 @@ export default async function ProjectPage({ params }: PageProps) {
       </div>
 
       {/* Article Content */}
-      <article className="container mx-auto px-4 max-w-7xl -mt-32 relative z-10">
+      <article className="container mx-auto px-4 max-w-7xl -mt-16 sm:-mt-24 md:-mt-32 relative z-10">
         {/* Title and Metadata */}
-        <div className="bg-background/95 backdrop-blur-sm rounded-lg border border-border p-8 md:p-12 mb-8">
-          <h1 className="font-serif font-bold text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
+        <div className="bg-background/95 backdrop-blur-sm rounded-lg border border-border p-5 sm:p-8 md:p-12 mb-8">
+          <h1 className="font-serif font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             {project.title}
           </h1>
 
@@ -162,13 +163,13 @@ export default async function ProjectPage({ params }: PageProps) {
         <div className="flex gap-8">
           {/* Main content */}
           <div className="flex-1 min-w-0">
-            <div className="rounded-lg p-0 md:p-8 bg-transparent md:dark:bg-neutral-900/60 md:dark:border md:dark:border-neutral-800/60">
+              <div className="rounded-lg px-1 sm:px-4 md:p-8 bg-transparent md:dark:bg-neutral-900/60 md:dark:border md:dark:border-neutral-800/60">
               {/* MDX Content */}
               <div className="prose prose-neutral dark:prose-invert max-w-none 
                 prose-headings:scroll-mt-20 prose-headings:font-serif
-                prose-h1:text-4xl prose-h1:font-bold prose-h1:mt-12 prose-h1:mb-6
-                prose-h2:text-3xl prose-h2:font-bold prose-h2:mt-12 prose-h2:mb-4 prose-h2:border-b prose-h2:border-border prose-h2:pb-2
-                prose-h3:text-xl prose-h3:font-semibold prose-h3:mt-8 prose-h3:mb-3
+                prose-h1:font-bold prose-h1:mt-12 prose-h1:mb-6
+                prose-h2:font-bold prose-h2:mt-12 prose-h2:mb-4 prose-h2:border-b prose-h2:border-border prose-h2:pb-2
+                prose-h3:font-semibold prose-h3:mt-8 prose-h3:mb-3
                 prose-p:leading-relaxed prose-p:text-base prose-p:my-4
                 prose-lead:text-xl prose-lead:text-muted-foreground prose-lead:font-normal
                 prose-strong:text-foreground prose-strong:font-semibold
@@ -211,8 +212,8 @@ export default async function ProjectPage({ params }: PageProps) {
 
           {/* Table of Contents - Desktop only */}
           {headings.length > 0 && (
-            <aside className="hidden lg:block w-64 flex-shrink-0">
-              <div className="sticky top-24 border-l border-border pl-6">
+            <aside className="hidden lg:block w-64 flex-shrink-0 self-start sticky top-24">
+              <div className="border-l border-border pl-6">
                 <TableOfContents headings={headings} />
               </div>
             </aside>

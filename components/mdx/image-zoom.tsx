@@ -31,7 +31,9 @@ export function ImageZoom({ src, alt, caption, className, title, style, ...props
           <img
             src={src}
             alt={alt || ''}
-            className="rounded-lg border border-border bg-card shadow-sm w-auto max-h-[500px] object-contain transition-opacity hover:opacity-95"
+            loading="lazy"
+            decoding="async"
+            className="rounded-lg border border-border bg-card shadow-sm w-auto max-w-full max-h-[500px] object-contain transition-opacity hover:opacity-95"
             {...props}
           />
         </div>
@@ -45,6 +47,7 @@ export function ImageZoom({ src, alt, caption, className, title, style, ...props
       {isOpen && (
         <div
           className="fixed inset-0 z-[100] bg-background/95 backdrop-blur-sm flex items-center justify-center p-4 md:p-8 animate-in fade-in duration-200"
+          style={{ paddingTop: 'max(1rem, env(safe-area-inset-top))' }}
           onClick={() => setIsOpen(false)}
         >
           <button
@@ -59,6 +62,7 @@ export function ImageZoom({ src, alt, caption, className, title, style, ...props
              <img
               src={src}
               alt={alt || ''}
+              decoding="async"
               className="max-w-full max-h-full w-auto h-auto object-contain rounded-md shadow-2xl pointer-events-auto cursor-zoom-out"
               onClick={() => setIsOpen(false)}
             />

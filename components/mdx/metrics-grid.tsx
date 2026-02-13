@@ -6,8 +6,8 @@ interface MetricProps {
 
 export function Metric({ label, value, description }: MetricProps) {
   return (
-    <div className="flex flex-col p-6 bg-muted/50 rounded-lg border border-border">
-      <div className="text-3xl font-bold text-foreground mb-2">{value}</div>
+    <div className="flex flex-col p-4 sm:p-6 bg-muted/50 rounded-lg border border-border">
+      <div className="text-2xl sm:text-3xl font-bold text-foreground mb-2">{value}</div>
       <div className="text-sm font-semibold text-muted-foreground uppercase tracking-wide">
         {label}
       </div>

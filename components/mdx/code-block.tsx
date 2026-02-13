@@ -53,7 +53,7 @@ export function CodeBlock({ children, className, filename, showLineNumbers = tru
         </div>
       )}
       <div className="relative">
-        <div className={`rounded-lg overflow-hidden border border-border ${filename ? 'rounded-t-none border-t-0' : ''} [&_.linenumber]:opacity-0 group-hover:[&_.linenumber]:opacity-100 [&_.linenumber]:transition-opacity`}>
+        <div className={`rounded-lg overflow-hidden border border-border ${filename ? 'rounded-t-none border-t-0' : ''} [&_.linenumber]:opacity-0 [&_.linenumber]:transition-opacity group-hover:[&_.linenumber]:opacity-100 [@media(hover:none)]:[&_.linenumber]:opacity-100`}>
           <SyntaxHighlighter
             language={language}
             style={currentTheme === 'dark' ? oneDark : oneLight}
@@ -72,7 +72,7 @@ export function CodeBlock({ children, className, filename, showLineNumbers = tru
           variant="ghost"
           size="sm"
           onClick={handleCopy}
-          className="absolute top-2 right-2 h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity bg-background/80 hover:bg-background"
+          className="absolute top-2 right-2 h-8 w-8 p-0 opacity-0 group-hover:opacity-100 [@media(hover:none)]:opacity-100 transition-opacity bg-background/80 hover:bg-background"
         >
           {copied ? (
             <Check className="h-4 w-4 text-green-500" />

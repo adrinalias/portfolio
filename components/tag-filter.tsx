@@ -22,7 +22,7 @@ export function TagFilter({ selectedTags, onTagToggle, onClearAll, availableTags
 
   return (
     <div className="space-y-3">
-      <div className="flex items-center justify-between min-h-[2rem]">
+      <div className="flex flex-wrap items-center justify-between gap-2 min-h-[2rem]">
         <h3 className="text-sm font-medium text-muted-foreground">
           Filter by tags {hasActiveFilters && `(${selectedTags.length} active)`}
         </h3>

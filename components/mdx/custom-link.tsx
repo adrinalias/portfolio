@@ -7,7 +7,6 @@ interface CustomLinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> 
 
 export function CustomLink({ href, children, ...props }: CustomLinkProps) {
   const isExternal = href?.startsWith('http');
-  const isAnchor = href?.startsWith('#');
 
   return (
     <a

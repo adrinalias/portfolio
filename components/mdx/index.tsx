@@ -34,13 +34,13 @@ export const mdxComponents = {
   // Enhanced headings with explicit styling
   h1: (props: any) => (
     <h1 
-      className="scroll-mt-20 font-serif font-bold text-4xl mt-12 mb-6 text-foreground" 
+      className="scroll-mt-20 font-serif font-bold text-2xl sm:text-3xl md:text-4xl mt-12 mb-6 text-foreground" 
       {...props} 
     />
   ),
   h2: (props: any) => (
     <h2 
-      className="scroll-mt-20 font-serif font-bold text-3xl mt-12 mb-4 pb-2 border-b border-border text-foreground" 
+      className="scroll-mt-20 font-serif font-bold text-xl sm:text-2xl md:text-3xl mt-12 mb-4 pb-2 border-b border-border text-foreground" 
       {...props} 
     />
   ),

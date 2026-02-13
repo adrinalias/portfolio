@@ -1,68 +1,57 @@
 import { Tag } from '@/types/project';
 
-// Generate random OKLCH color with good contrast
-function generateRandomColor(): string {
-  // Lightness: 65-75% for good contrast in both themes
-  const lightness = 0.65 + Math.random() * 0.1;
-  // Chroma: 0.15-0.25 for vibrant but not oversaturated
-  const chroma = 0.15 + Math.random() * 0.1;
-  // Hue: any value 0-360
-  const hue = Math.random() * 360;
-  
-  return `oklch(${lightness.toFixed(2)} ${chroma.toFixed(2)} ${hue.toFixed(0)})`;
-}
-
-// Tag definitions with random colors
+// Deterministic tag colors — hand-picked OKLCH values with good contrast in both themes.
+// Using fixed values avoids hydration mismatches and ensures visual consistency.
 export const tags: Record<string, Tag> = {
   cad: {
     id: 'cad',
     name: 'CAD',
-    color: generateRandomColor(),
+    color: 'oklch(0.65 0.18 250)',     // Blue
   },
   robotics: {
     id: 'robotics',
     name: 'Robotics',
-    color: generateRandomColor(),
+    color: 'oklch(0.68 0.19 150)',     // Teal-green
   },
   mechanical: {
     id: 'mechanical',
     name: 'Mechanical Design',
-    color: generateRandomColor(),
+    color: 'oklch(0.70 0.17 30)',      // Warm orange
   },
   prototyping: {
     id: 'prototyping',
     name: 'Prototyping',
-    color: generateRandomColor(),
+    color: 'oklch(0.67 0.20 310)',     // Purple
   },
   '3d-printing': {
     id: '3d-printing',
     name: '3D Printing',
-    color: generateRandomColor(),
+    color: 'oklch(0.72 0.16 80)',      // Gold-yellow
   },
   electronics: {
     id: 'electronics',
     name: 'Electronics',
-    color: generateRandomColor(),
+    color: 'oklch(0.66 0.19 200)',     // Cyan
   },
   automation: {
     id: 'automation',
     name: 'Automation',
-    color: generateRandomColor(),
+    color: 'oklch(0.68 0.17 120)',     // Green
   },
   simulation: {
     id: 'simulation',
     name: 'Simulation',
-    color: generateRandomColor(),
+    color: 'oklch(0.65 0.20 280)',     // Indigo
   },
   fabrication: {
     id: 'fabrication',
     name: 'Fabrication',
-    color: generateRandomColor(),
+    color: 'oklch(0.70 0.18 350)',     // Rose-pink
   },
   research: {
     id: 'research',
     name: 'Research',
-    color: generateRandomColor(),
+    color: 'oklch(0.69 0.16 60)',      // Amber
   },
 };
 

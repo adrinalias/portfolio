@@ -7,7 +7,7 @@ export default async function Portfolio() {
   const projects = await getAllProjects();
 
   return (
-    <ScrollSnapContainer className="h-screen overflow-y-auto">
+    <ScrollSnapContainer className="h-dvh overflow-y-auto">
       {/* Hero Section */}
       <div className="snap-start">
         <HeroSection />

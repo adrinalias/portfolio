@@ -44,7 +44,7 @@ export function Callout({ type = 'info', title, children }: CalloutProps) {
   const Icon = style.icon;
 
   return (
-    <div className={`border-l-4 ${style.container} p-4 my-6 rounded-r-lg`}>
+    <div className={`border-l-4 ${style.container} p-4 my-6 rounded-r-lg overflow-hidden`}>
       <div className="flex gap-3">
         <Icon className={`${style.iconColor} h-5 w-5 flex-shrink-0 mt-0.5`} />
         <div className="flex-1">

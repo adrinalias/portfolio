@@ -2,7 +2,7 @@
 
 import { Canvas } from '@react-three/fiber';
 import { OrbitControls, Stage, useGLTF, Environment } from '@react-three/drei';
-import { Suspense, useState } from 'react';
+import { Suspense, useState, useEffect } from 'react';
 import { useTheme } from 'next-themes';
 
 interface ModelViewerProps {
@@ -16,30 +16,16 @@ function Model({ url }: { url: string }) {
 
 function ModelViewerInner({ modelUrl }: ModelViewerProps) {
   const { theme, systemTheme } = useTheme();
-  const [error, setError] = useState(false);
   
   const currentTheme = theme === 'system' ? systemTheme : theme;
   const isDark = currentTheme === 'dark';
 
-  if (error) {
-    return (
-      <div className="w-full aspect-video rounded-lg bg-muted flex items-center justify-center border border-border">
-        <div className="text-center p-8">
-          <p className="text-muted-foreground mb-2">Failed to load 3D model</p>
-          <p className="text-sm text-muted-foreground">
-            Make sure the model file exists and is in GLB/GLTF format
-          </p>
-        </div>
-      </div>
-    );
-  }
-
   return (
-    <div className="w-full aspect-video rounded-lg overflow-hidden border border-border bg-muted">
+    <div className="w-full aspect-video rounded-lg overflow-hidden border border-border bg-muted relative">
       <Canvas
         camera={{ position: [0, 0, 5], fov: 50 }}
         gl={{ antialias: true, alpha: true }}
-        onCreated={({ gl }: any) => {
+        onCreated={({ gl }) => {
           gl.setClearColor(isDark ? '#000000' : '#fafafa', 1);
         }}
       >
@@ -79,41 +65,6 @@ function ModelViewerInner({ modelUrl }: ModelViewerProps) {
   );
 }
 
-export default function ModelViewer({ modelUrl }: ModelViewerProps) {
-  const [mounted, setMounted] = useState(false);
-
-  // Only render on client
-  if (typeof window === 'undefined') {
-    return (
-      <div className="w-full aspect-video bg-muted animate-pulse rounded-lg" />
-    );
-  }
-
-  // Check for WebGL support
-  if (mounted && !isWebGLAvailable()) {
-    return (
-      <div className="w-full aspect-video rounded-lg bg-muted flex items-center justify-center border border-border">
-        <div className="text-center p-8">
-          <p className="text-muted-foreground mb-2">WebGL not supported</p>
-          <p className="text-sm text-muted-foreground">
-            Your browser doesn't support 3D graphics
-          </p>
-        </div>
-      </div>
-    );
-  }
-
-  if (!mounted) {
-    // Trigger mount on next frame
-    setTimeout(() => setMounted(true), 0);
-    return (
-      <div className="w-full aspect-video bg-muted animate-pulse rounded-lg" />
-    );
-  }
-
-  return <ModelViewerInner modelUrl={modelUrl} />;
-}
-
 // Check if WebGL is available
 function isWebGLAvailable(): boolean {
   try {
@@ -122,12 +73,38 @@ function isWebGLAvailable(): boolean {
       window.WebGLRenderingContext &&
       (canvas.getContext('webgl') || canvas.getContext('experimental-webgl'))
     );
-  } catch (e) {
+  } catch {
     return false;
   }
 }
 
-// Preload models
-useGLTF.preload = (url: string) => {
-  useGLTF(url);
-};
+export default function ModelViewer({ modelUrl }: ModelViewerProps) {
+  const [mounted, setMounted] = useState(false);
+  const [webGLSupported, setWebGLSupported] = useState(true);
+
+  useEffect(() => {
+    setMounted(true);
+    setWebGLSupported(isWebGLAvailable());
+  }, []);
+
+  if (!mounted) {
+    return (
+      <div className="w-full aspect-video bg-muted animate-pulse rounded-lg" />
+    );
+  }
+
+  if (!webGLSupported) {
+    return (
+      <div className="w-full aspect-video rounded-lg bg-muted flex items-center justify-center border border-border">
+        <div className="text-center p-8">
+          <p className="text-muted-foreground mb-2">WebGL not supported</p>
+          <p className="text-sm text-muted-foreground">
+            Your browser doesn&apos;t support 3D graphics
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return <ModelViewerInner modelUrl={modelUrl} />;
+}

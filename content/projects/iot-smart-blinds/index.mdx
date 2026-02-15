@@ -1,127 +1,56 @@
-Personal project creating an IoT-enabled automated blind controller that syncs with wake-up alarms and sunset times to optimize natural light for better sleep quality. The system achieved 100% reliability over 30 days of continuous testing.
+Personal project creating an IoT-enabled automated blind controller that syncs with wake-up alarms and sunset times to optimize natural light for better sleep quality.
 
 ## Project Overview
 
-**Goal:** Improve sleep quality by automatically opening blinds at wake-up time and closing them at dusk. This personal project tackles a real problem I experienced with light disrupting my sleep schedule.
+**Goal:** Automate blinds to open at wake-up time and close at dusk to improve sleep hygiene and morning alertness. This project involved developing a full-stack IoT solution on a minimal budget.
 
-The system uses smart home integration to detect morning alarms and weather API integration to sync with local sunset times, creating a fully autonomous solution that requires zero manual intervention once configured.
+## Design & Mechanical Engineering
 
-:::tip
-This project demonstrates the power of IoT in solving everyday problems. The combination of ESP32, smart home integration, and weather APIs creates a seamless automation experience.
-:::
+Developed a non-destructive automation system for student housing where structural modifications were prohibited.
 
-## Electronics & Hardware
-
-The system uses an ESP32 microcontroller paired with an off-the-shelf stepper motor driver. I designed and 3D-printed a custom enclosure to mount the stepper motor to the blind mechanism, utilizing rapid prototyping to iterate through multiple design revisions.
+### Engineering Challenges
+- **Torque vs. Mounting:** Initial prototypes used double-sided adhesive strips that failed under the motor's stall torque.
+- **Software-Defined Stops:** To eliminate reactionary torque on the mounting adhesive, I calibrated the system to stop **exactly 2 steps before the mechanical limit**. This firmware-level solution resolved the physical failure mode without requiring higher-strength (and potentially destructive) adhesives.
+- **Actuation Optimization:** Prioritized torque over rotational speed by reducing step frequency, enabling a low-cost stepper to overcome the static friction of the heavy blind rod.
 
 ### Key Components
-- **Microcontroller:** ESP32 (WiFi-enabled)
-- **Motor Driver:** Stepper motor driver board
-- **Actuator:** NEMA 17 stepper motor
-- **Enclosure:** Custom 3D-printed PLA housing
-- **Power Supply:** 12V DC adapter
+- **Microcontroller:** ESP32 (Dual-core, WiFi-enabled for NTP sync and remote triggers).
+- **Actuator:** 28BYJ-48 Stepper Motor (Integrated high-reduction gearbox for maximum torque-to-cost ratio).
+- **Enclosure:** Custom 3D-printed PLA housing.
+- **BOM Optimization:** Achieved a **total cost of <$10** through direct-to-manufacturer component sourcing, a 90% reduction compared to commercial IoT alternatives.
 
-The mechanical coupling required careful design to transfer torque from the stepper motor to the existing blind mechanism without modification to the window assembly. Multiple iterations were needed to achieve proper fit and torque transmission.
+## Connectivity & System Architecture
 
-:::warning
-When designing the mechanical coupling, ensure the stepper motor has sufficient torque to handle the blind weight. Initial prototypes failed due to torque limitations before upgrading to NEMA 17.
-:::
+The system utilizes a modular cloud-to-device architecture for high reliability and autonomous operation.
 
-## Firmware
-
-The embedded firmware handles WiFi connectivity, time synchronization, API communication, and automation logic.
-
-```cpp
-// C++ (Arduino) Firmware
-void setup() {
-  // Connect to WiFi
-  WiFi.begin(ssid, password);
-  
-  // Sync time with NTP server
-  configTime(gmtOffset, daylightOffset, ntpServer);
-  
-  // Fetch sunset time from Weather API
-  sunsetTime = fetchSunsetTime();
-}
-
-void loop() {
-  // Check SmartThings for morning alarm trigger
-  if (alarmTriggered()) {
-    openBlinds();
-  }
-  
-  // Close blinds at sunset
-  if (currentTime >= sunsetTime) {
-    closeBlinds();
-  }
-}
-```
-
-The firmware uses non-blocking code to maintain responsiveness and includes error handling for network failures and API timeouts.
-
-## Connectivity & Integration
-
-The firmware connects via Wi-Fi to fetch real-time sunset times from a Weather API and syncs time with an NTP server. Integration with Samsung SmartThings enables the system to detect my morning alarms.
-
-### Control Flow
-**Online Database → IFTTT → SmartThings → ESP32**
-
-- **Weather API:** Fetches daily sunset time based on GPS coordinates
-- **NTP Server:** Provides accurate time synchronization
-
-:::info
-The modular architecture makes it easy to add new triggers or actions. For example, you could integrate weather forecasts to keep blinds closed on extremely hot days or integrate with other smart home devices.
-:::
-- **IFTTT:** Acts as middleware between alarm apps and SmartThings
-- **SmartThings:** Sends webhook triggers to ESP32
-
-This architecture allows the system to work with any alarm clock app connected to SmartThings, making it flexible and user-friendly.
+- **Time Synchronization:** Fetches daily sunrise/sunset data via Weather APIs to dynamically adjust closing times.
+- **Trigger Integration:** Polls a background server to synchronize the "open" sequence with mobile phone alarms.
+- **Natural Wake-up:** Configured to trigger movement 5 minutes prior to alarm time, leveraging natural light to reduce sleep inertia.
 
 ## Results & Impact
 
 <MetricsGrid columns={2}>
   <Metric 
+    label="BOM Cost" 
+    value="<$10" 
+    description="Total hardware cost"
+  />
+  <Metric 
     label="Reliability" 
     value="100%" 
-    description="Uptime over 30-day testing period"
+    description="Zero failures after torque-limit implementation"
   />
   <Metric 
-    label="Cost Savings" 
-    value="85%" 
-    description="Lower than market alternatives"
-  />
-  <Metric 
-    label="Response Time" 
-    value="<5s" 
-    description="From alarm trigger to movement"
+    label="Non-Destructive" 
+    value="Yes" 
+    description="Zero wall damage or drilling required"
   />
   <Metric 
     label="Autonomy" 
     value="100%" 
-    description="Zero manual intervention required"
+    description="Fully autonomous sunset/alarm tracking"
   />
 </MetricsGrid>
 
-### Real-World Impact
-The system successfully improved my sleep quality by ensuring natural light exposure aligned with my wake schedule. The automation eliminated the need for manual blind adjustment, and the sunset-based closing prevented light pollution in the evening.
-
-:::success
-After 30 days of continuous operation, the system achieved perfect reliability with no missed wake-ups or sunset closings. The automated light management resulted in noticeably improved sleep quality and energy levels.
-:::
-
-## Future Improvements
-
-### Planned Upgrades
-1. **Motor System:** Upgrade to H-bridge motor driver with car power window motor
-   - Handle larger, heavier blinds
-   - Smoother operation with variable speed control
-   - Current feedback for stall detection
-
-2. **Sensors:** Add light sensor for weather-adaptive behavior
-   - Close blinds on extremely bright days
-   - Adjust timing based on cloud cover
-
-3. **User Interface:** Web dashboard for manual control and configuration
-   - Adjust timing offsets
-   - View system status and logs
-   - Schedule overrides for weekends/holidays
+### Technical Outcome
+The project demonstrated that robust home automation is achievable on a minimal budget through strategic firmware-hardware trade-offs. By resolving mechanical failures (mounting instability) with software-defined limits, I avoided the need for more expensive mechanical fasteners or high-torque motors.

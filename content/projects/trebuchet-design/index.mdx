@@ -10,45 +10,35 @@ Course project challenge: Design and build a trebuchet using computer-controlled
 
 This project combined mechanical design, precision manufacturing, and practical engineering iteration to achieve the exact performance target.
 
-## Design & CAD
+## Design & Engineering
 
-Designed the complete trebuchet in SolidWorks for manufacture using laser-cut wood components and 3D printed/COTS (Commercial Off-The-Shelf) parts. Applied **GD&T (Geometric Dimensioning and Tolerancing)** principles to ensure proper fit and function.
+Designed the trebuchet in SolidWorks with a focus on **mechanical adjustability** to compensate for simulation variances.
 
-### Design Decisions
-- **Frame:** Laser-cut wood for accuracy and cost-effectiveness
-- **Pivot Points:** 3D printed bearings for smooth rotation
-- **Arm:** Optimized length ratio between counterweight and projectile sides
-- **Sling:** COTS string and pouch mechanism
-- **Release Mechanism:** Adjustable pin for fine-tuning launch angle
-
-The SolidWorks model served as both the design tool and the manufacturing documentation, with all parts dimensioned directly from the virtual assembly.
+### Hardware-Based Calibration
+Initial SolidWorks simulations provided inconsistent results due to complex multibody dynamics and friction variables. To ensure the 6-foot target was met, I integrated physical calibration features into the hardware:
+- **Variable Pivot Points:** Drilled multiple holes along the trebuchet arm, allowing for rapid adjustment of the effort-to-load arm ratio.
+- **Angular Stopper:** Designed a 3D-printed arc with a variable stopper to precisely control the arm's rotation limit and the resulting launch angle.
+- **Sling Release:** Fine-tuned the release pin angle to optimize the projectile's trajectory.
 
 ## Manufacturing & Assembly
 
-All structural components were laser cut from wood based on precise CAD drawings. The unique constraint: **assembly using only interference fits**—no fasteners allowed.
+The structural frame was laser-cut from plywood, adhering to a strict **no-fastener/no-adhesive** constraint. I developed a custom locking mechanism using **finger joints and locking teeth** to secure the vertical stabilizers.
 
-### Interference Fit Strategy
-This required extensive tolerancing studies to determine the exact interference values needed for secure joints without adhesives or mechanical fasteners. Key considerations:
-- **Material Properties:** Wood grain direction affects compression behavior
-- **Interference Amount:** Too loose = parts fall apart; too tight = parts crack during assembly
-- **Environmental Factors:** Humidity changes affect wood dimensions
-- **Assembly Sequence:** Parts must be assembled in specific order
-
-Multiple tolerance iterations were tested on scrap material before finalizing the manufacturing drawings.
+### Tolerance & Kerf Compensation
+To achieve reliable interference fits, I conducted iterative tests to determine the laser's **kerf (0.005")**. By compensating for this material loss in the CAD geometry, I ensured that every joint was:
+- **Secure:** Required a press-fit to assemble, providing high structural rigidity.
+- **Modular:** Capable of multiple assembly/disassembly cycles without material degradation.
+- **Rigid:** The locking teeth effectively distributed the impulse forces from the 2lb counterweight.
 
 ## Testing & Validation
 
-Built an initial prototype to test the design and validate simulation data. Used test results to correct and refine the final design, ensuring the penny would land at exactly 6 feet.
+The iterative testing phase focused on mapping the relationship between pivot location, stop angle, and launch distance.
 
-### Iterative Process
-1. **Initial Build:** First prototype missed target by 18 inches
-2. **Analysis:** Measured actual arm swing angle and release point
-3. **Adjustment:** Modified counterweight position and sling length
-4. **Second Build:** Within 6 inches of target
-5. **Fine-Tuning:** Adjusted release pin angle
-6. **Final Build:** Achieved exact 6-foot target distance
-
-The testing phase revealed that small changes in the release angle had significant effects on range, requiring precise control of the trigger mechanism.
+### Calibration Protocol
+1. **Pivot Selection:** Identified the optimal hole for the target distance range.
+2. **Angle Fine-Tuning:** Adjusted the 3D-printed stopper in 5-degree increments.
+3. **Weight Balancing:** Verified the impulse from the quarters-filled counterweight.
+4. **Final Accuracy:** Achieved the 6-foot target with repeatable precision through hardware overrides rather than relying on the initial theoretical models.
 
 ## Results
 

@@ -6,68 +6,48 @@ As part of a 6-person Formula SAE team, I developed the complete data acquisitio
 
 The rig uses a motor to spin a brake assembly while measuring torque, speed, and temperature to enable data-driven design decisions for improved lap times.
 
-## Hardware & Electronics Development
+## Design & Mechanical Integration
 
-The system is built around an **SAME51 microcontroller**. I designed custom signal conditioning circuits including voltage dividers and RC filters to process analog sensor signals.
+Developed a compact, table-top test rig to characterize brake performance, avoiding the footprint and cost of room-scale inertial dynos.
 
-The hardware interfaces with:
-- **IR sensor** for rotational speed measurement
-- **Load cells** for torque measurement
-- **Thermocouples** for temperature monitoring
+### Key Components
+- **Steady-State Testing Rig:** Shifted from traditional inertial flywheel testing to steady-state analysis. This allowed for more granular mapping of CoF vs. Temperature without the need for massive mechanical energy storage.
+- **Rotor Specification:** Utilized **4140 steel rotors** to establish a baseline for Formula SAE track performance, identifying a significant delta compared to manufacturer-provided cast iron data.
+- **Adjustable Actuator:** Designed a C-shaped actuator with a wing-nut adjustable arm to interface with various master cylinders.
+- **Thermal Mapping:** Integrated a multi-point monitoring system:
+    - **Embedded Thermocouples:** Placed within the brake pad corners for internal core temp.
+    - **Adhesive Thermocouples:** Monitored caliper surface temp to prevent brake fluid boiling.
+    - **Infrared (IR) Array:** Non-contact sensor mapped temperature distribution across the rotor radius.
 
-All components were carefully selected and integrated to achieve the 20 Hz sampling rate requirement while maintaining signal integrity.
+## Mechatronics & DAQ Development
 
-## Firmware Development
+Led the development of a custom Data Acquisition (DAQ) system to replace prohibitively expensive commercial solutions.
 
-```cpp
-// C++ Firmware for SAME51 MCU
-// Real-time data processing at 20 Hz
-void loop() {
-  // Read sensor inputs
-  float torque = readLoadCell();
-  float speed = readIRSensor();
-  float temp = readThermocouple();
-  
-  // Calculate coefficient of friction
-  float mu = calculateCoF(torque, speed, temp);
-  
-  // Transmit via Serial for GUI
-  sendData(torque, speed, temp, mu);
-}
-```
+### Signal Integrity & Hardware
+1. **Frequency-to-Voltage Conversion:** Integrated a TI chip to offload rotor speed square-wave processing. This decoupled measurement from MCU interrupt load, ensuring timing stability across all operating states.
+2. **Calibration:** Validated speed-to-voltage linearity using a 100 Hz signal generator.
+3. **Filtering:** Implemented hardware-level low-pass filters on load cell inputs to attenuate mechanical vibration from the torque arm.
+4. **Design for Serviceability:** Final assembly utilized a structured protoboard layout rather than a custom PCB, ensuring the system could be easily modified or repaired by future mechanical leads without specialized ECAD tools.
 
-The firmware is programmed in C++ to handle:
-- Real-time sensor data acquisition
-- Signal processing and filtering
-- CAN communication with motor controller
-- Serial transmission to Python GUI
+### System Architecture
+1. **Microcontroller:** SAME51 ARM Cortex-M4 handling real-time sensor fusion and CAN communication.
+2. **Data Pipeline:** 20 Hz sampling rate feeding a real-time **Python-based GUI** for live visualization and CSV logging.
 
-## Software Development
+### Cost-to-Performance Optimization
+| Feature | Professional (NI) | Custom Solution |
+|---------|-------------------|-----------------|
+| Cost | $8,200 | $500 |
+| Development Time | Weeks (Ordering/Config) | Days (Design/Build) |
+| Flexibility | Rigid Proprietary SW | Fully Custom Python/C++ |
+| **Result** | **N/A (Over Budget)** | **94% Cost Reduction** |
 
-Created a Python GUI for real-time data visualization and logging. The interface displays live graphs of:
+## Results & Validation
 
-- Thermocouple temperature
-- Pad temperature average
-- Applied torque
-- Calculated coefficient of friction
+The rig successfully profiled multiple brake pad compounds, providing the Formula team with the first empirical CoF vs. Temperature curves in the team's history.
 
-All data is logged to CSV files for post-processing analysis and comparison with manufacturer specifications.
-
-## Results & Impact
-
-### Performance Metrics
-
-- **20 Hz** real-time processing and logging
-- Successfully produced coefficient of friction vs. temperature graphs
-- Validated manufacturer claims with empirical data
-
-### Cost Optimization
-
-By focusing on core requirements rather than over-engineering, we achieved a **94% cost reduction**:
-- Commercial NI DAQ: **$8,200**
-- Our custom solution: **$500**
-
-This dramatic cost savings demonstrates the value of understanding requirements and designing fit-for-purpose solutions.
+- **Empirical Validation:** Proved that manufacturer-provided data was often missing or inaccurate for track-specific temperature ranges.
+- **Performance Impact:** Enabled the team to select brake compounds based on race duration (Endurance vs. Autocross), directly improving braking consistency.
+- **Innovation Award:** Secured **2nd Place** at UTA Innovation Day 2025 for engineering excellence in budget-constrained environments.
 
 ### Recognition
 

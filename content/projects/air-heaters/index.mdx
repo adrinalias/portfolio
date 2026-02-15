@@ -1,79 +1,51 @@
-Designed and manufactured stainless steel enclosures for four air heater modules as part of a high-temperature test rig at TESLAB. The system achieves temperatures up to 1500°F with 85 SCFM air flow at 60 psi.
+Designed and manufactured stainless steel enclosures for four 8.4 kW air heater modules at TESLAB. The system simulates jet engine environments, achieving 1500°F (815°C) and 85 SCFM at 60 psi.
 
 ## Project Background
 
-Part of a research project at TESLAB (Turbomachinery & Energy Systems Lab) at UT Arlington to create a high-temperature test rig simulating jet engine turbine state conditions. The system requirements were demanding:
-- **Temperature:** Up to 1500°F (815°C)
-- **Flow Rate:** 85 SCFM net air flow
-- **Pressure:** Up to 60 psi
-
-No commercial off-the-shelf solution existed for these specifications, necessitating a fully custom design and fabrication approach.
+Engineered a custom high-temperature test rig for the Turbomachinery & Energy Systems Lab (UT Arlington) to simulate turbine-state conditions. Commercial heaters lacked the required 1500°F/60 psi capability, necessitating a custom-built solution.
 
 ## Design & Engineering
 
-Using SolidWorks, I designed custom **SS 304 (stainless steel)** enclosures applying DFMA (Design for Manufacturing and Assembly) principles. The design prioritized ease of fabrication and assembly while meeting the extreme thermal and pressure requirements.
+Utilized SolidWorks to design **SS 304 (stainless steel)** enclosures, optimizing for high-temperature oxidation resistance and structural stability under pressure.
 
-### Design Considerations
-- **Material Selection:** SS 304 chosen for high-temperature oxidation resistance and structural stability
-- **Thermal Expansion:** Accounted for differential expansion at operating temperatures
-- **Pressure Containment:** Welded joints designed to maintain integrity at 60 psi
-- **Serviceability:** Modular design allows individual heater element replacement
-- **Mounting:** Integrated provisions for secure mounting to test rig frame
-
-I created detailed technical drawings and a digital twin for validation before manufacturing, reducing the risk of costly fabrication errors.
+### Technical Priorities
+- **Material Performance:** SS 304 selected for its 1500°F (815°C) operational ceiling and structural integrity under 60 psi pressure.
+- **Thermal Management:** Analyzed differential expansion to prevent joint failure; the system achieved a rapid **3-minute ramp-up to steady-state** temperature.
+- **Modularity:** Individual heater elements are field-replaceable without decommissioning the module.
+- **Pressure Integrity:** TIG-welded seams validated for 60 psi containment.
 
 <ImageZoom 
   src="/projects/air-heaters/Heater 3 - 200C & Test Rig.jpg" 
   alt="Air heater module integrated with test rig"
-  caption="Heater module (200°C) mounted on the test rig"
+  caption="Heater module (200°C) integrated with the TESLAB test rig."
 />
 
 ## Manufacturing & Assembly
 
-Collaborated closely with the university machine shop for sheet metal fabrication, bending, and welding operations. The manufacturing process involved:
+Executed a high-speed fabrication strategy using **SendCutSend** for precision laser-cut sheet metal and the university machine shop for final assembly and TIG welding.
 
-1. **Sheet Metal Cutting:** Laser or waterjet cutting of SS 304 panels
-2. **Bending:** Precision brake forming to achieve required geometry
-3. **Welding:** TIG welding of seams for pressure-tight assembly
-4. **Quality Inspection:** Dimensional verification against CAD models
+1. **Sheet Metal Optimization:** Navigated complex bend radii and flat-pattern development in SolidWorks.
+2. **Precision Fitment:** Designed for SendCutSend's tolerances to eliminate manual rework.
+3. **Adaptive Engineering:** Leveraged modular union-nut connections to resolve a manufacturing error (mirrored bends) by inverting the heater core, avoiding a complete scrap of the enclosure.
 
-I personally handled all electrical wiring, assembled the four heater modules, and integrated them with an off-the-shelf PID controller for precise temperature management.
+### Thermal Validation
+Conducted empirical testing to optimize insulation weight and thickness:
+- **500°C Threshold:** Validated single-layer insulation effectiveness.
+- **750°C+ Threshold:** Implemented dual-layer insulation to ensure safe exterior surface temperatures during long-duration runs.
 
 <ImageZoom 
   src="/projects/air-heaters/Heater 1 - 500C & Heater 2 - 200C (2).jpg" 
   alt="Two air heater modules"
-  caption="Heater modules 1 (500°C) and 2 (200°C) in stainless steel enclosures"
+  caption="500°C and 200°C modules showing compact SS 304 enclosure design."
 />
 
-### Electrical Integration
-- Wired heating elements in parallel configuration
-- Implemented solid-state relays for PID control
-- Added thermocouples for temperature feedback
-- Integrated safety interlocks and thermal fuses
+## Results & Performance
 
-<ImageZoom 
-  src="/projects/air-heaters/Heater Electrical Control (1).jpg" 
-  alt="Electrical control panel for air heaters"
-  caption="PID control system with thermocouples and safety interlocks"
-/>
+Delivered a robust **8.4 kW system** that outperformed initial cost and lead-time projections.
 
-<ImageZoom 
-  src="/projects/air-heaters/Heater Electrical Control (2).jpg" 
-  alt="Electrical wiring and relay configuration"
-  caption="Solid-state relays and wiring configuration for heater control"
-/>
-
-## Results & Cost Optimization
-
-Successfully implemented an **8.4 kW air heater system** distributed across **4 heater modules**. The system achieved target temperatures and flow rates required for turbine testing.
-
-### Key Achievements
-- **Performance:** Met all design specifications (1500°F, 85 SCFM, 60 psi)
-- **Cost Savings:** 30% reduction in manufacturing costs by utilizing university machine shop
-- **Reliability:** System operates continuously for extended test campaigns
-- **Safety:** No incidents or pressure failures during operation
-
-By outsourcing sheet metal fabrication to the university shop rather than expensive external vendors, I reduced manufacturing costs by 30% without compromising quality or performance.
+- **Extreme Specs:** Consistently achieved 1500°F at 60 psi during turbine test campaigns.
+- **Efficiency:** SendCutSend integration reduced lead times by 50% compared to local vendor quotes.
+- **Safety:** Integrated SSR-driven PID control with redundant thermal fuses; zero pressure or thermal incidents reported.
 
 <ImageZoom 
   src="/projects/air-heaters/Heater 4 - 500C.jpg" 

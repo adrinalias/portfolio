@@ -1,79 +1,44 @@
-Developed MATLAB code to transform T6 turbine airfoil cross-sections into curved airfoils for rotors and stators, then automated SolidWorks import for a complete multistage turbine assembly.
+Root-cause analysis and redesign of a high-speed rotor for an Air Foil Bearing test rig at TESLAB. Analyzed interference fit failure at 40,000 RPM and 750°C using Ansys.
 
-## Project Overview
+## Project Context
 
-As a Research Assistant at TESLAB, I worked on blade designs for a multistage Helium Turbine. The challenge was to transform standard T6 turbine airfoil cross-sections into properly curved airfoils suitable for both rotors and stators in the turbine stages.
+As a Research Assistant at TESLAB (UT Arlington), I supported the development of a test rig simulating the extreme thermal and rotational conditions of a jet engine. The rig required a rotor spinning at **40,000 RPM** in environments reaching **750°C**.
 
-This parametric approach enables rapid design exploration and optimization for different operating conditions, significantly accelerating the turbomachinery design cycle.
+### The Problem: Dynamic Imbalance
+During high-speed testing, the system experienced excessive vibration. Initial attempts to balance the rotor were unsuccessful; the assembly would lose its balance immediately after operation. I was tasked with root-causing the failure and redesigning the rotor assembly.
 
-## Calculation & Transformation
+## Root-Cause Analysis
 
-Used entry/exit angles and curvature radii to mathematically bend T6 profiles in MATLAB. The algorithm handles the geometric transformation while maintaining airfoil characteristics critical for aerodynamic performance.
+I conducted a systematic investigation to identify the source of the dynamic instability:
+1. **Machine Validation:** Verified the balancing equipment using a calibration mass to rule out sensor error.
+2. **Interference Fit Study:** Suspected that the joint between the disc and the shaft was loosening at high speeds due to centrifugal expansion.
+3. **Simulation (Ansys):** Performed a rotational study to analyze the radial stress at the contact point.
 
-### Bending Algorithm
+### Simulation Findings
+The analysis confirmed that at the **40,000 RPM critical speed** and 750°C, the expansion of the disc reduced the contact pressure to near-zero, causing the rotor to lose balance.
 
-```matlab
-% MATLAB - Blade Profile Bending Algorithm
-function curved_profile = bendAirfoil(t6_points, entry_angle, exit_angle, radius)
-    % Calculate curvature parameters
-    theta_total = exit_angle - entry_angle;
-    num_points = size(t6_points, 1);
-    
-    % Apply bending transformation
-    for i = 1:num_points
-        theta = entry_angle + (i/num_points) * theta_total;
-        x = t6_points(i,1);
-        y = t6_points(i,2);
-        
-        % Polar transformation
-        r = radius + y;
-        curved_profile(i,:) = [r*cos(theta), r*sin(theta)];
-    end
-end
-```
+## Redesign & Engineering
 
-### Key Parameters
-- **Entry Angle:** Flow angle at blade leading edge
-- **Exit Angle:** Flow angle at blade trailing edge
-- **Radius:** Mean radius of blade row
-- **T6 Profile:** Standard airfoil coordinates (suction and pressure sides)
+To resolve the fitment failure, I proposed a redesign focusing on mass distribution and thermal stability.
 
-The transformation maintains the thickness distribution and camber characteristics of the original T6 profile while adapting it to the required turning angle and radial position.
+### Material Selection
+Materials were selected based on their specific strength and **Coefficient of Thermal Expansion (CTE)**:
+- **Stainless Steel (500°C side):** CTE ~17.0 µm/m·K.
+- **Titanium (750°C side):** CTE ~8.6 µm/m·K. Utilizing Titanium's lower CTE prevented excessive expansion at the hottest zone, maintaining the interference fit.
 
-## CAD Integration
-
-Exported the calculated profile points and imported them into SolidWorks to create 3D models of rotors and stators. Developed a custom macro to automate the point import workflow, dramatically speeding up the design iteration process.
-
-### Workflow Automation
-1. **MATLAB:** Generate curved airfoil coordinates
-2. **Export:** Save points as text file in SolidWorks-compatible format
-3. **SolidWorks Macro:** Automatically import points and create splines
-4. **3D Modeling:** Extrude profiles to create blade geometry
-5. **Assembly:** Pattern blades around rotor/stator disks
-
-This automation reduced the time required to create a single blade from hours to minutes, enabling rapid iteration and optimization.
-
-## Analysis & Validation
-
-Conducted preliminary **Finite Element Analysis (FEA)** in Ansys to check for stress concentrations and ensure structural integrity under operating conditions. This analysis identified potential failure points early in the design phase.
-
-### FEA Objectives
-- **Centrifugal Loading:** Evaluate stresses from high rotational speeds
-- **Thermal Gradients:** Assess thermally-induced stresses
-- **Vibration Modes:** Identify natural frequencies to avoid resonance
-- **Factor of Safety:** Ensure adequate margins for material yield
-
-The analysis revealed that the blade root required fillet radii modification to reduce stress concentration factors below acceptable limits.
+### Design Optimization
+- **Radius Reduction:** Decreased the disc radius to shift mass toward the center of rotation, significantly reducing centrifugal expansion.
+- **Flange Integration:** Added a small-radius flange at the contact point to ensure the joint remained under compression at 40,000 RPM.
+- **Inertial Matching:** Increased disc thickness to maintain the required inertial load for airfoil bearing testing.
 
 ## Outcomes
 
-### Deliverables
-- **Parametric Code:** Easily modifiable MATLAB tool that can bend any turbine blade profile with different geometric parameters
-- **CAD Assembly:** Complete multistage turbine and compressor assembly in SolidWorks
-- **Documentation:** Technical report for research proposal submission
-- **Validated Design:** FEA-verified blade geometry ready for manufacturing
+### Technical Results
+- **Stability:** Redesigned rotor maintained balance throughout the full 40,000 RPM range at 750°C.
+- **Validation:** Empirical data matched Ansys predictions, proving the efficacy of the flange-based interference fit.
+- **Efficiency:** Eliminated vibration-induced damage to the air foil bearings, enabling consistent, repeatable test campaigns.
 
-### Impact
-The parametric approach enables rapid design exploration for different operating conditions. Designers can now modify key parameters (entry/exit angles, radii, stage count) and regenerate the entire turbine assembly in a fraction of the time required by manual CAD methods.
-
-This tool continues to be used at TESLAB for ongoing turbomachinery research projects, demonstrating its value as a reusable design asset.
+### Key Learnings
+- **High-Speed Dynamics:** Understanding the nonlinear effects of centrifugal force on mechanical joints.
+- **Extreme Environment FEA:** Using Ansys to simulate coupled thermal-rotational stresses.
+- **Material Performance:** Selecting aerospace-grade alloys based on thermal expansion and yield strength at 1000°F+.

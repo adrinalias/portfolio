@@ -72,7 +72,7 @@ export function TableOfContents({ headings }: TableOfContentsProps) {
             <button
               onClick={() => scrollToHeading(heading.id)}
               className={cn(
-                'text-left w-full hover:text-foreground transition-colors',
+                'text-left w-full hover:text-foreground transition-colors cursor-pointer',
                 activeId === heading.id
                   ? 'text-foreground font-medium border-l-2 border-foreground pl-3 -ml-px'
                   : 'text-muted-foreground border-l-2 border-transparent pl-3 -ml-px'

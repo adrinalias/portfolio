@@ -10,6 +10,8 @@ import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { TableOfContents } from '@/components/table-of-contents';
 import { ThemeToggle } from '@/components/theme-toggle';
+import { ImageGalleryProvider } from '@/components/image-gallery-provider';
+import { ProjectImageGrid } from '@/components/project-image-grid';
 
 export async function generateStaticParams() {
   const slugs = await getAllProjectSlugs();
@@ -66,22 +68,11 @@ export default async function ProjectPage({ params }: PageProps) {
         </div>
       </header>
 
-      {/* Hero Image */}
-      <div className="relative w-full h-[30vh] sm:h-[40vh] md:h-[60vh] bg-muted">
-        <Image
-          src={project.coverImage}
-          alt={project.title}
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/50 to-transparent" />
-      </div>
-
       {/* Article Content */}
-      <article className="container mx-auto px-4 max-w-7xl -mt-16 sm:-mt-24 md:-mt-32 relative z-10">
+      <article className="container mx-auto px-4 max-w-7xl mt-8 sm:mt-10 md:mt-12 relative z-10">
+        <ImageGalleryProvider>
         {/* Title and Metadata */}
-        <div className="bg-background/95 backdrop-blur-sm rounded-lg border border-border p-5 sm:p-8 md:p-12 mb-8">
+        <div className="bg-background/95 backdrop-blur-sm rounded-lg border border-border p-5 sm:p-8 md:p-12 mb-8 md:dark:bg-neutral-900/60 md:dark:border md:dark:border-neutral-800/60">
           <h1 className="font-serif font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             {project.title}
           </h1>
@@ -159,6 +150,11 @@ export default async function ProjectPage({ params }: PageProps) {
           )}
         </div>
 
+        {/* Project Images Card */}
+        <div className="bg-background/95 backdrop-blur-sm rounded-lg border border-border p-5 sm:p-8 md:p-10 mb-8 md:dark:bg-neutral-900/60 md:dark:border md:dark:border-neutral-800/60">
+          <ProjectImageGrid />
+        </div>
+
         {/* Two-column layout: Content + ToC */}
         <div className="flex gap-8">
           {/* Main content */}
@@ -210,7 +206,7 @@ export default async function ProjectPage({ params }: PageProps) {
             </div>
           </div>
 
-          {/* Table of Contents - Desktop only */}
+          {/* Sidebar - Desktop only */}
           {headings.length > 0 && (
             <aside className="hidden lg:block w-64 flex-shrink-0 self-start sticky top-24">
               <div className="border-l border-border pl-6">
@@ -219,6 +215,7 @@ export default async function ProjectPage({ params }: PageProps) {
             </aside>
           )}
         </div>
+        </ImageGalleryProvider>
       </article>
 
       {/* Footer spacing */}

@@ -71,7 +71,7 @@ export default async function ProjectPage({ params }: PageProps) {
       {/* Article Content */}
       <article className="container mx-auto px-4 max-w-7xl mt-8 sm:mt-10 md:mt-12 relative z-10">
         <ImageGalleryProvider>
-        {/* Title and Metadata */}
+        {/* Title, Metadata, and Project Images */}
         <div className="bg-background/95 backdrop-blur-sm rounded-lg border border-border p-5 sm:p-8 md:p-12 mb-8 md:dark:bg-neutral-900/60 md:dark:border md:dark:border-neutral-800/60">
           <h1 className="font-serif font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-foreground mb-4">
             {project.title}
@@ -148,10 +148,8 @@ export default async function ProjectPage({ params }: PageProps) {
               )}
             </div>
           )}
-        </div>
 
-        {/* Project Images Card */}
-        <div className="bg-background/95 backdrop-blur-sm rounded-lg border border-border p-5 sm:p-8 md:p-10 mb-8 md:dark:bg-neutral-900/60 md:dark:border md:dark:border-neutral-800/60">
+          <Separator className="my-6" />
           <ProjectImageGrid />
         </div>
 

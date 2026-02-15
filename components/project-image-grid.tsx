@@ -52,10 +52,6 @@ export function ProjectImageGrid() {
 
   return (
     <div>
-      <p className="text-sm font-semibold mb-3">
-        This Project in Pictures
-      </p>
-
       <div ref={containerRef} className="w-full">
         <div className="flex gap-2">
           {visibleImages.map((image) => (

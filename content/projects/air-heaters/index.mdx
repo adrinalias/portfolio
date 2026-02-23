@@ -1,78 +1,163 @@
-Designed and manufactured stainless steel enclosures for four 8.4 kW air heater modules at TESLAB. The system simulates jet engine environments, achieving 1500°F (815°C) and 85 SCFM at 60 psi.
+Designed and manufactured stainless steel enclosures for four high-temperature air heater modules at TESLAB. The system simulates jet engine environments, achieving 750°C and 85 SCFM at 60 psi.
 
 ## Project Background
 
-Engineered a custom high-temperature test rig for the Turbomachinery & Energy Systems Lab (UT Arlington) to simulate turbine-state conditions. Commercial heaters lacked the required 1500°F/60 psi capability, necessitating a custom-built solution.
-
-## Design & Engineering
-
-Utilized SolidWorks to design **SS 304 (stainless steel)** enclosures, optimizing for high-temperature oxidation resistance and structural stability under pressure.
-
-### Technical Priorities
-- **Material Performance:** SS 304 selected for its 1500°F (815°C) operational ceiling and structural integrity under 60 psi pressure.
-- **Thermal Management:** Analyzed differential expansion to prevent joint failure; the system achieved a rapid **3-minute ramp-up to steady-state** temperature.
-- **Modularity:** Individual heater elements are field-replaceable without decommissioning the module.
-- **Pressure Integrity:** TIG-welded seams validated for 60 psi containment.
+This project was completed for the [Turbomachinery & Energy Systems Lab, under Dr. Daejong Kim](https://www.uta.edu/academics/faculty/profile?user=daejongkim#Research). The rig is used to test air foil bearings in high temperature and pressure conditions seen in jet engines. I engineered a custom high-temperature heater system to meet temperature, pressure, and airflow requirements. Commercial solutions were cost-prohibitive and most lacked the required flowrate.
 
 <ImageZoom 
-  src="/projects/air-heaters/Heater 3 - 200C & Test Rig.jpg" 
-  alt="Air heater module integrated with test rig"
-  caption="Heater module (200°C) integrated with the TESLAB test rig."
-/>
+  src="/projects/air-heaters/All Heater Enlcosures Collage.png" 
+  alt="Collage of the different air heater enclosures."
+  caption="All the air heater enclosures."
+  />
+
+## Design
+
+I received preliminary designs for multiple heater core models that would be combined to achieve different maximum temperatures and flow rates. With the cores ordered, I was responsible for designing manufacturable enclosures.
+
+### Initial Approach & Pivot
+
+I began using **parametric modeling in SolidWorks**, initially planning to cut sheet metal to size and manually weld boxes together. After consulting with our department machinists and running cost estimates in Excel, I realized that **sheet metal bending would be significantly more cost-effective** than my original approach.
+
+This led me to learn SolidWorks' **sheet metal features**, iterating between 3D enclosure designs and 2D flat patterns to identify and resolve manufacturing issues before fabrication.
+
+<ImageZoom 
+  src="/projects/air-heaters/Initial Enclosure Design.jpg" 
+  alt="Initial enclosure design for the air heaters."
+  caption="Initial enclosure design using standard modeling in SolidWorks; was scrapped very early."
+  />
+
+### Insulation & Thermal Considerations
+
+When sizing the enclosures, I accounted for the **thickness of fiberglass insulation**, which was selected for its low cost and ease of use. Since the insulation's thermal performance relies on trapped air, I ensured the design would prevent compression that would reduce its effectiveness.
+
+### Final Design & DFM
+
+After reviewing [SendCutSend's design-for-manufacturing (DFM) guidelines](https://sendcutsend.com/services/cnc-bending/#resources), I simplified each enclosure into **two-half clamshell boxes**, allowing easy insertion of heater cores with insulation.
+
+**Key DFM considerations for sheet metal:**
+- **Bend radii:** Adhered to minimum radii based on material thickness to prevent cracking
+- **Tolerances:** Designed to not need the limits of the manufacturing process.
+- **Material thickness:** Selected 0.06" SS 304 for balance of stiffness and cost.
+- **Corner relief:** Added relief cuts to prevent material tearing at corners
+
+I selected **SS 304 stainless steel** for its weldability and high-temperature oxidation resistance. Corners were designed with **TIG welding in mind** for structural reinforcement.
 
 ## Manufacturing & Assembly
 
-Executed a high-speed fabrication strategy using **SendCutSend** for precision laser-cut sheet metal and the university machine shop for final assembly and TIG welding.
-
-1. **Sheet Metal Optimization:** Navigated complex bend radii and flat-pattern development in SolidWorks.
-2. **Precision Fitment:** Designed for SendCutSend's tolerances to eliminate manual rework.
-3. **Adaptive Engineering:** Leveraged modular union-nut connections to resolve a manufacturing error (mirrored bends) by inverting the heater core, avoiding a complete scrap of the enclosure.
-
-### Thermal Validation
-Conducted empirical testing to optimize insulation weight and thickness:
-- **500°C Threshold:** Validated single-layer insulation effectiveness.
-- **750°C+ Threshold:** Implemented dual-layer insulation to ensure safe exterior surface temperatures during long-duration runs.
+SendCutSend delivered precision parts with no issues, and assembly went smoothly **except for one critical error on my end**: I accidentally mirrored the bends on one enclosure. Rather than scrapping the part, I solved this by **inverting the heater core assembly**, leveraging the modular union-nut connections I had designed for serviceability.
 
 <ImageZoom 
-  src="/projects/air-heaters/Heater 1 - 500C & Heater 2 - 200C (2).jpg" 
-  alt="Two air heater modules"
-  caption="500°C and 200°C modules showing compact SS 304 enclosure design."
+  src="/projects/air-heaters/Welding Preperation.jpg" 
+  alt="Heater modules on a welding table with fixtures for alignment."
+  caption="Layout and preperation to weld the heater cores."
 />
 
-## Results & Performance
+### Heater Core Assembly
 
-Delivered a robust **8.4 kW system** that outperformed initial cost and lead-time projections.
+I collaborated with university machinists to refine the heater core design for welding. The assembly uses **stainless steel tubes with drilled holes** acting as manifolds to distribute airflow across multiple heating elements, then recombine at the output.
 
-- **Extreme Specs:** Consistently achieved 1500°F at 60 psi during turbine test campaigns.
-- **Efficiency:** SendCutSend integration reduced lead times by 50% compared to local vendor quotes.
-- **Safety:** Integrated SSR-driven PID control with redundant thermal fuses; zero pressure or thermal incidents reported.
+- **Thermocouple integration:** Added a port for K-type thermocouples secured with flared fittings from McMaster-Carr.
+- **Serviceability:** Implemented **union joints** on 2 of the 4 heaters, allowing quick replacement of heating elements without disassembling the entire module.
 
 <ImageZoom 
-  src="/projects/air-heaters/Heater 4 - 500C.jpg" 
-  alt="500°C air heater module"
-  caption="High-temperature heater module rated for 500°C operation"
-/>
+  src="/projects/air-heaters/Heater 3, 4 & 6 with Insulation.jpg" 
+  alt="Three air heater modules with insulation installed."
+  caption="Three heater modules with fiberglass insulation installed."
+  />
 
 <ImageZoom 
-  src="/projects/air-heaters/Heater 5 - 4.8kW - 200C.jpg" 
-  alt="4.8kW air heater module"
-  caption="4.8kW heater module (200°C) - one of four modules in the system"
+  src="/projects/air-heaters/Heater Enclosure Assembly Overview.png" 
+  alt="Diagram of how the heater assembly is built and assembled."
+  caption="Diagram of the heater design & assembly process."
 />
 
+Welding defects in one type of heater cores resulted in a smalled design change in which the metal bellows used for misalignment compensation were moved fromt the inlet to the outlet of the heater cores. This allowed us to meet meet the timeline without waiting for new cores or reworking the existing cores.
+
 <ImageZoom 
-  src="/projects/air-heaters/Heater 6 - 500C.jpg" 
-  alt="Another 500°C air heater module"
-  caption="Another high-temperature heater module showing SS 304 construction"
+  src="/projects/air-heaters/Heater Cores Manufacturing Defects.jpg" 
+  alt="Manufacturing defects in heater cores"
+  caption="Manufacturing defects in this type of heater cores led to a design change."
+  />
+
+## Controls
+
+I designed the control system around **PID temperature controllers** with K-type thermocouple inputs, driving **solid-state relays (SSRs)** for precise heating control.
+
+**Safety & electrical design:**
+- **Manual override switch** for instant heater shutdown.
+- **Individual fuses** in each control box for overcurrent protection.
+- **Distributed electrical loads:** With a total draw of up to 8.4 kW, I distributed heaters across multiple **20A circuits**, each with individual breakers.
+- **SSR cooling:** Added a small fan to the main controls enclosure to prevent overheating.
+
+<ImageZoom 
+  src="/projects/air-heaters/Heater Electrical Control (1).jpg" 
+  alt="Electrical control box for the air heaters."
+  caption="Main electrical control box housing PID controllers, SSRs, and safety features."
+  />
+
+<ImageZoom 
+  src="/projects/air-heaters/Inside Heater Control Box 1.jpg" 
+  alt="Inside view of the heater control box showing PID controllers and SSRs."
+  caption="Inside view of the main heater control box showing PID controllers and SSRs."
 />
+
+## Integration & Testing
+
+After heater cores were welded, I conducted **empirical insulation testing** by measuring heater output temperature against the exterior surface temperature of the insulation.
+
+**Results:**
+- **500°C heaters:** 1 layer of fiberglass insulation sufficient
+- **750°C heaters:** 2 layers required for safe exterior temperatures
+
+I performed comprehensive commissioning tests:
+1. **Individual heater testing:** Each unit ran at maximum temperature for 5+ minutes
+2. **Full system test:** All heaters operated simultaneously to verify electrical capacity and thermal performance
+3. **Thermal monitoring:** Used a thermal camera throughout all tests to monitor heaters, control boxes, and surrounding surfaces for hotspots.
+
+<ImageZoom 
+  src="/projects/air-heaters/Heater 4 Testing.jpg" 
+  alt="Heater at max temperature with thermal monitoring."
+  caption="Testing one of the 500°C heaters with thermal monitoring; testing insulation."
+  />
+
+<ImageZoom 
+  src="/projects/air-heaters/Heater Testing with Thermal Camera.jpg" 
+  alt="Heater at max temperature with thermal monitoring."
+  caption="Testing one of the 500°C heaters with thermal monitoring; testing insulation."
+  />
 
 ## Technical Specifications
 
 | Parameter | Value |
 |-----------|-------|
-| Total Power | 8.4 kW |
-| Number of Modules | 4 |
-| Max Temperature | 1500°F (815°C) |
-| Air Flow Rate | 85 SCFM |
+| Total System Power | 8.4 kW |
+| Total Number of Heaters | 6 |
+| Number of Heaters Installed | 4 |
+| Number of Heater Enclosures | 3 |
+| Max Temperature | 750°C (1382°F) |
+| Net Air Flow Rate | 85 SCFM |
 | Operating Pressure | Up to 60 psi |
-| Material | SS 304 Stainless Steel |
-| Control System | PID with thermocouples |
+| Enclosure Material | SS 304 Stainless Steel |
+| Insulation | Fiberglass (1-2 layers) |
+| Control System | PID with K-type thermocouples & SSRs |
+
+## Other Contributions
+
+### Reverse Engineering
+I reverse engineered the wiring and controls of a existing set of heaters that used 3-phase power. Converted the circuit to use use the same PID controllers and SSRs. This involved tracing the wiring, identifying components, and adding new mounting and connections. 
+
+<ImageZoom 
+  src="/projects/air-heaters/Cleaned Up Control Box, Heater 1 & 2.jpg" 
+  alt="Cleaned up control box and two air heater modules."
+  caption="Cleaned up control box and two air heater modules after reverse engineering the existing system."
+  />
+
+### Air Flow Monitoring
+I also created the system to split and monitor the air flow to each of the heaters according the the PI's requirements. This involved sourcing and installing the correct adapters for the existing flow meters, and learning how to set them up for the target flow rates. Everything was routed to minimize the tripping hazard.
+
+<ImageZoom 
+  src="/projects/air-heaters/Air Flow & Control.jpg" 
+  alt="Air flow and control system"
+  caption="Analog & digital air flow meters for each individual heater."
+  />
+
